@@ -35,6 +35,7 @@ namespace Othello_Game_Assignment
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startNewGame = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,11 +80,22 @@ namespace Othello_Game_Assignment
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
+            // startNewGame
+            // 
+            this.startNewGame.Location = new System.Drawing.Point(302, 401);
+            this.startNewGame.Name = "startNewGame";
+            this.startNewGame.Size = new System.Drawing.Size(75, 23);
+            this.startNewGame.TabIndex = 1;
+            this.startNewGame.Text = "New Game";
+            this.startNewGame.UseVisualStyleBackColor = true;
+            this.startNewGame.Click += new System.EventHandler(this.startNewGame_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.startNewGame);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -101,6 +113,7 @@ namespace Othello_Game_Assignment
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.Button startNewGame;
     }
 }
 
