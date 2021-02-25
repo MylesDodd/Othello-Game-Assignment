@@ -247,7 +247,7 @@ namespace GUIImageArray
             }
         }
 
-        private void Place_in_Grid(Form Disaplay, int[,] cardArray)
+        private void Place_in_Grid(Form Display, int[,] cardArray)
         {
             for (int r = 0; r < Int_rows; r++)
             {

@@ -14,7 +14,7 @@ namespace Othello_Game_Assignment
 {
     public partial class Form1 : Form
     {
-        
+        string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
         int[,] gameSpace;
         GImageArray gameBoard;
         public Form1()
@@ -26,7 +26,7 @@ namespace Othello_Game_Assignment
 
         private void startNewGame_Click(object sender, EventArgs e)
         {
-            string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
+            
             int[,] gameSpace = new int[8, 8]
             {{10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10 },
@@ -37,6 +37,34 @@ namespace Othello_Game_Assignment
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10}};
             gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
+
+
+            gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+
+
         }
+
+
+        private void Which_Element_Clicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("This box was clicked");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
