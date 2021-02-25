@@ -172,7 +172,7 @@ namespace GUIImageArray
         /// <param name="c">index Column of the element</param>
         /// <param name="ImageName_Without_Extension">FileName to be used (No extension required and PNG assumed.</param>
         /// <returns></returns>
-        public bool Set_Elememt(int r, int c, string ImageName_Without_Extension)
+        public bool Set_Element(int r, int c, string ImageName_Without_Extension)
         {
             ImageElement[r, c].ImageLocation = Path_To_Picture + ImageName_Without_Extension + ".PNG";
             return true;

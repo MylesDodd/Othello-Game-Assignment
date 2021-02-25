@@ -17,6 +17,11 @@ namespace Othello_Game_Assignment
         string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
         int[,] gameSpace;
         GImageArray gameBoard;
+        
+
+      
+        
+
         public Form1()
         {
 
@@ -40,28 +45,30 @@ namespace Othello_Game_Assignment
 
 
             gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-
+            
+            
 
         }
 
 
         private void Which_Element_Clicked(object sender, EventArgs e)
         {
-            MessageBox.Show("This box was clicked");
+            //get the row and column, pass that into get element then set the element 
+
+
+            int r = gameBoard.Get_Row(sender);
+            int c = gameBoard.Get_Col(sender);
+            gameBoard.Set_Element(r, c, "0");
+           
+        
+            
+
+
         }
 
+       
 
-
-
-
-
-
-
-
-
-
-
-
+       
 
 
 
