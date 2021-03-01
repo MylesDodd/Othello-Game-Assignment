@@ -19,7 +19,7 @@ namespace Othello_Game_Assignment
         GImageArray gameBoard;
         string player1;
         string player2;
-        bool playerTurn;
+        bool playerTurn = true;
 
         
        
