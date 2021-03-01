@@ -19,6 +19,9 @@ namespace Othello_Game_Assignment
         GImageArray gameBoard;
         string player1;
         string player2;
+        bool playerTurn;
+
+        
        
 
       
@@ -57,6 +60,7 @@ namespace Othello_Game_Assignment
 
 
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                
             }
 
             
@@ -65,26 +69,44 @@ namespace Othello_Game_Assignment
         }
 
 
-        private void Which_Element_Clicked(object sender, EventArgs e)
+        public void Which_Element_Clicked(object sender, EventArgs e)
         {
-            //get the row and column, pass that into get element then set the element 
+
+           
+
+            
 
 
-            int r = gameBoard.Get_Row(sender);
-            int c = gameBoard.Get_Col(sender);
-            gameBoard.Set_Element(r, c, "0");
+            if (playerTurn == true)
+            {
+                int r = gameBoard.Get_Row(sender);
+                int c = gameBoard.Get_Col(sender);
+                gameBoard.Set_Element(r, c, "0");
+                playerTurn = false;
+            }
+
+           else if (playerTurn != true)
+            {
+                int r = gameBoard.Get_Row(sender);
+                int c = gameBoard.Get_Col(sender);
+                gameBoard.Set_Element(r, c, "1");
+
+                playerTurn = true;
+
+            }
+
+
+
+            
 
         }
 
         public void player1TextBox_TextChanged(object sender, EventArgs e)
         {
-
-        
+ 
             TextBox player1TextBox = (TextBox)sender;
-            Convert.ToString(player1TextBox.Text); 
+            Convert.ToString(player1TextBox.Text);
             player1 = player1TextBox.Text;
-           
-
 
         }
 
