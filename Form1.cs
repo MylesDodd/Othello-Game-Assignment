@@ -20,6 +20,8 @@ namespace Othello_Game_Assignment
         string player1;
         string player2;
         bool playerTurn = true;
+        int row;
+        int col; 
 
         
        
@@ -72,35 +74,62 @@ namespace Othello_Game_Assignment
         public void Which_Element_Clicked(object sender, EventArgs e)
         {
 
-           
-
-            
-
-
             if (playerTurn == true)
             {
                 int r = gameBoard.Get_Row(sender);
                 int c = gameBoard.Get_Col(sender);
+                row = r;
+                col = c;
+
+
                 gameBoard.Set_Element(r, c, "0");
-                playerTurn = false;
+               
+
+                PlayerTurn();
+                
+
+
             }
 
            else if (playerTurn != true)
             {
                 int r = gameBoard.Get_Row(sender);
                 int c = gameBoard.Get_Col(sender);
+
+                row = r;
+                col = c;
                 gameBoard.Set_Element(r, c, "1");
 
-                playerTurn = true;
+
+
+
+                // for as long as there are items in the row which =! 1 we need to set their value to 1 until we meet another value of 1               
+
+                PlayerTurn();
 
             }
-
-
-
             
 
         }
 
+
+        public void SetArrayValue()
+        {
+            if (playerTurn == true)
+            {
+                gameSpace[row, col] = 0;
+            }
+
+            else if (playerTurn == false)
+            {
+                gameSpace[row, col] = 1;
+            }
+
+        }
+
+
+
+        
         public void player1TextBox_TextChanged(object sender, EventArgs e)
         {
  
@@ -111,7 +140,6 @@ namespace Othello_Game_Assignment
         }
 
 
-
         public void player2TextBox_TextChanged(object sender, EventArgs e)
         {
             TextBox player2TextBox = (TextBox)sender;
@@ -119,6 +147,26 @@ namespace Othello_Game_Assignment
             player2 = player2TextBox.Text;
             
         }
+
+
+        public void PlayerTurn()
+        {
+            if (playerTurn == true)
+            {
+                playerTurn = false;
+            }
+
+            else if (playerTurn == false)
+            {
+                playerTurn = true;
+            }
+   
+        }
+
+
+        
+
+       
 
 
 
