@@ -20,8 +20,8 @@ namespace Othello_Game_Assignment
         string player1;
         string player2;
         bool playerTurn = true;
-        int row;
-        int col; 
+        int r;
+        int c; 
 
         
        
@@ -33,7 +33,7 @@ namespace Othello_Game_Assignment
         {
 
             InitializeComponent();
-
+            
         }
 
         private void startNewGame_Click(object sender, EventArgs e)
@@ -62,6 +62,8 @@ namespace Othello_Game_Assignment
 
 
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+
+                
                 
             }
 
@@ -76,14 +78,26 @@ namespace Othello_Game_Assignment
 
             if (playerTurn == true)
             {
-                int r = gameBoard.Get_Row(sender);
-                int c = gameBoard.Get_Col(sender);
-                row = r;
-                col = c;
+               r = gameBoard.Get_Row(sender);
+               c = gameBoard.Get_Col(sender);
+               
+                //firstly check if this is a legal move e.g. is there a black square in the 8 surrounding squares of this element. therefore psuedocode: is elementClicked next to a picturebox with the value of 0? If yes then change element if no then don't.
+
+                PictureBox elementClicked = gameBoard.Get_Element(r, c);
+
+
+                IsValidPosition();
+                 
+
+                //after this we need to actually set the element
+                //then we need to check for if any white squares are outflanked and change them to black 
 
 
                 gameBoard.Set_Element(r, c, "0");
-               
+                
+
+
+
 
                 PlayerTurn();
                 
@@ -93,13 +107,13 @@ namespace Othello_Game_Assignment
 
            else if (playerTurn != true)
             {
-                int r = gameBoard.Get_Row(sender);
-                int c = gameBoard.Get_Col(sender);
+                r = gameBoard.Get_Row(sender);
+                c = gameBoard.Get_Col(sender);
 
-                row = r;
-                col = c;
+                
+               
                 gameBoard.Set_Element(r, c, "1");
-
+                
 
 
 
@@ -108,21 +122,25 @@ namespace Othello_Game_Assignment
                 PlayerTurn();
 
             }
+
+
             
+
 
         }
 
 
-        public void SetArrayValue()
-        {
+        public void SetArrayValue() //potentially use this to search in the array for other values to set elements next to the element which has been clicked according to game logic
+        {  //currently function does not work - null object reference
+
             if (playerTurn == true)
             {
-                gameSpace[row, col] = 0;
+                gameSpace[r, c] = 0;
             }
 
             else if (playerTurn == false)
             {
-                gameSpace[row, col] = 1;
+                gameSpace[r, c] = 1;
             }
 
         }
@@ -163,8 +181,34 @@ namespace Othello_Game_Assignment
    
         }
 
+        public void IsValidPosition()
+        {
+            PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
 
-        
+
+
+            if (topLeft.ImageLocation != imageDirectory + "0" + ".PNG") 
+            {
+                MessageBox.Show("Cannot be placed");
+            }
+           
+
+                
+
+
+
+            
+       
+            
+
+           
+
+
+
+                
+            
+        }
+       
 
        
 

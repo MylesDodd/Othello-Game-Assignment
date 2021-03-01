@@ -165,7 +165,7 @@ namespace GUIImageArray
             }
             return null;
         }
-        /// <summary>
+        /// <summary>   
         /// Here you can Set_Element image. The path is the one used during creation, but different image may be used, the extension is PNG.
         /// </summary>
         /// <param name="r">index Row of the element</param>
@@ -195,7 +195,7 @@ namespace GUIImageArray
             for (int r = 0; r < Int_rows; r++)
             {
                 for (int c = 0; c < Int_cols; c++)
-                {
+                { 
                     ImageElement[r, c].ImageLocation = Path_To_Picture + Colour + ".PNG";
                 }
             }
