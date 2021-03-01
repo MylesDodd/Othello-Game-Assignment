@@ -17,7 +17,9 @@ namespace Othello_Game_Assignment
         string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
         int[,] gameSpace;
         GImageArray gameBoard;
-        
+        string player1;
+        string player2;
+
 
       
         
@@ -31,8 +33,15 @@ namespace Othello_Game_Assignment
 
         private void startNewGame_Click(object sender, EventArgs e)
         {
-            
-            int[,] gameSpace = new int[8, 8]
+
+            if (player1 == "" || player2 == "")
+            {
+                MessageBox.Show("Please set the player names");
+            }
+
+            else
+            {
+                int[,] gameSpace = new int[8, 8]
             {{10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10 },
@@ -41,12 +50,18 @@ namespace Othello_Game_Assignment
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10}};
-            gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
+                gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
 
 
-            gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            }
+
+
             
-            
+
+
+
+
 
         }
 
@@ -59,19 +74,25 @@ namespace Othello_Game_Assignment
             int r = gameBoard.Get_Row(sender);
             int c = gameBoard.Get_Col(sender);
             gameBoard.Set_Element(r, c, "0");
-           
-        
-            
-
 
         }
 
-       
+        private void player1TextBox_TextChanged(object sender, EventArgs e)
+        {
+            
+            TextBox player1TextBox = (TextBox)sender;
+            player1 = player1TextBox.Text;
+            
+        }
 
-       
 
 
+        private void player2TextBox_TextChanged(object sender, EventArgs e)
+        {
 
+            TextBox player2TextBox = (TextBox)sender;
+            player2 = player2TextBox.Text;
 
+        }
     }
 }
