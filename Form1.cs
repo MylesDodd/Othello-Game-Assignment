@@ -80,36 +80,11 @@ namespace Othello_Game_Assignment
             {
                r = gameBoard.Get_Row(sender);
                c = gameBoard.Get_Col(sender);
-               
+
                 //firstly check if this is a legal move e.g. is there a black square in the 8 surrounding squares of this element. therefore psuedocode: is elementClicked next to a picturebox with the value of 0? If yes then change element if no then don't.
 
-                PictureBox elementClicked = gameBoard.Get_Element(r, c);
-
-                if (IsValidPosition() == true)
-                {
-                    gameBoard.Set_Element(r, c, "0");
-                    PlayerTurn();
-                }
-                
-
-                else if (IsValidPosition() == false)
-                {
-                    MessageBox.Show("This move is invalid, please place your counter next to at least one of your colour");
-                }
-                 
-
-                //after this we need to actually set the element
-                //then we need to check for if any white squares are outflanked and change them to black 
-
-
-                
-                
-
-
-
-
-                
-                
+                IsValidPosition();
+             
 
 
             }
@@ -119,17 +94,8 @@ namespace Othello_Game_Assignment
                 r = gameBoard.Get_Row(sender);
                 c = gameBoard.Get_Col(sender);
 
-                
-               
-                gameBoard.Set_Element(r, c, "1");
-                
 
-
-
-                // for as long as there are items in the row which =! 1 we need to set their value to 1 until we meet another value of 1               
-
-                PlayerTurn();
-
+                IsValidPosition();
             }
 
 
@@ -190,76 +156,134 @@ namespace Othello_Game_Assignment
    
         }
 
-        public bool IsValidPosition()
+
+        public void IsValidPosition()
         {
-            PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
 
-            if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG") 
+           
+
+            if (playerTurn == true)
             {
-                return true;
-                
+                PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
+                PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
+                PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
+                PictureBox left = gameBoard.Get_Element(r, c - 1);
+                PictureBox right = gameBoard.Get_Element(r, c + 1);
+                PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
+                PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
+                PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
+                if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (topCenter.ImageLocation == imageDirectory + "1" + ".PNG")
+                    {
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (topRight.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (left.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (right.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (bottomLeft.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (bottomCenter.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else if (bottomRight.ImageLocation == imageDirectory + "1" + ".PNG"){
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Placement of Black Counter, try again");
+                }
+
+
+
+                // error occurs here when selecting element in col 0 or col 7 because it attempts to check if there is something in the element to its left or right respectively (e.g. col -1 or col, 8) which do not exist
             }
 
-            PictureBox top = gameBoard.Get_Element(r, c - 1);
-
-            if (top.ImageLocation == imageDirectory + "0" + ".PNG")
+           else if (playerTurn != true)
             {
-                return true;
+                PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
+                PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
+                PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
+                PictureBox left = gameBoard.Get_Element(r, c - 1);
+                PictureBox right = gameBoard.Get_Element(r, c + 1);
+                PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
+                PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
+                PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
+                if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (topCenter.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (left.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (right.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
+                {
+                    gameBoard.Set_Element(r, c, "1");
+                    PlayerTurn();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Placement of white Counter, try again");
+                }
+
             }
+        }
 
-
-            PictureBox topRight = gameBoard.Get_Element(r + 1, c - 1);
-
-            if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-
-
-            PictureBox left = gameBoard.Get_Element(r - 1, c);
-
-            if (left.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-            PictureBox right = gameBoard.Get_Element(r + 1, c);
-
-            if (right.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-
-            PictureBox bottomLeft = gameBoard.Get_Element(r - 1, c + 1);
-
-            if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-            PictureBox bottomCenter = gameBoard.Get_Element(r, c + 1);
-
-            if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-            PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-
-            if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
-            {
-                return true;
-            }
-
-            else
-
-                return false;
+        
 
 
         
+
+
         }
+
+        
+            
        
 
        
@@ -267,4 +291,5 @@ namespace Othello_Game_Assignment
 
 
     }
-}
+
+
