@@ -168,11 +168,19 @@ namespace Othello_Game_Assignment
                 PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
                 PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
                 PictureBox left = gameBoard.Get_Element(r, c - 1);
+                PictureBox centre = gameBoard.Get_Element(r, c);
                 PictureBox right = gameBoard.Get_Element(r, c + 1);
                 PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
                 PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
                 PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-                if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
+
+
+                if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
+                  {
+                        MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
+                    }
+
+                else if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
                 {
                     gameBoard.Set_Element(r, c, "0");
                     PlayerTurn();
@@ -206,6 +214,8 @@ namespace Othello_Game_Assignment
                     gameBoard.Set_Element(r, c, "0");
                     PlayerTurn();
                 }
+                
+                
                 else
                 {
                     MessageBox.Show("Invalid Placement of Black Counter, try again");
@@ -218,15 +228,23 @@ namespace Othello_Game_Assignment
 
            else if (playerTurn != true)
             {
+                // need to set these dynamically so edge elements do not result in exception
                 PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
                 PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
                 PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
                 PictureBox left = gameBoard.Get_Element(r, c - 1);
+                PictureBox centre = gameBoard.Get_Element(r, c);
                 PictureBox right = gameBoard.Get_Element(r, c + 1);
                 PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
                 PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
                 PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-                if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+
+                if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
+                {
+                    MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
+                }
+
+                else if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
                 {
                     gameBoard.Set_Element(r, c, "1");
                     PlayerTurn();
@@ -266,10 +284,15 @@ namespace Othello_Game_Assignment
                     gameBoard.Set_Element(r, c, "1");
                     PlayerTurn();
                 }
+                
                 else
                 {
-                    MessageBox.Show("Invalid Placement of white Counter, try again");
+                    MessageBox.Show("Invalid Placement of White Counter, try again");
                 }
+
+
+
+
 
             }
         }
