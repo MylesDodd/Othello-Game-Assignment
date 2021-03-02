@@ -85,21 +85,30 @@ namespace Othello_Game_Assignment
 
                 PictureBox elementClicked = gameBoard.Get_Element(r, c);
 
+                if (IsValidPosition() == true)
+                {
+                    gameBoard.Set_Element(r, c, "0");
+                    PlayerTurn();
+                }
+                
 
-                IsValidPosition();
+                else if (IsValidPosition() == false)
+                {
+                    MessageBox.Show("This move is invalid, please place your counter next to at least one of your colour");
+                }
                  
 
                 //after this we need to actually set the element
                 //then we need to check for if any white squares are outflanked and change them to black 
 
 
-                gameBoard.Set_Element(r, c, "0");
+                
                 
 
 
 
 
-                PlayerTurn();
+                
                 
 
 
@@ -181,32 +190,75 @@ namespace Othello_Game_Assignment
    
         }
 
-        public void IsValidPosition()
+        public bool IsValidPosition()
         {
             PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
 
-
-
-            if (topLeft.ImageLocation != imageDirectory + "0" + ".PNG") 
+            if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG") 
             {
-                MessageBox.Show("Cannot be placed");
+                return true;
+                
             }
-           
 
-                
+            PictureBox top = gameBoard.Get_Element(r, c - 1);
 
-
-
-            
-       
-            
-
-           
+            if (top.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
 
 
+            PictureBox topRight = gameBoard.Get_Element(r + 1, c - 1);
 
-                
-            
+            if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+
+
+            PictureBox left = gameBoard.Get_Element(r - 1, c);
+
+            if (left.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+            PictureBox right = gameBoard.Get_Element(r + 1, c);
+
+            if (right.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+
+            PictureBox bottomLeft = gameBoard.Get_Element(r - 1, c + 1);
+
+            if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+            PictureBox bottomCenter = gameBoard.Get_Element(r, c + 1);
+
+            if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+            PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
+
+            if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
+            {
+                return true;
+            }
+
+            else
+
+                return false;
+
+
+        
         }
        
 
