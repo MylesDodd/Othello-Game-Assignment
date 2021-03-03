@@ -175,7 +175,7 @@ namespace Othello_Game_Assignment
 
             PictureBox elementClicked = gameBoard.Get_Element(r, c);
 
-            if (elementClicked.ImageLocation == imageDirectory + "10" + ".PNG")
+            if (elementClicked.ImageLocation == imageDirectory + "10" + ".PNG") //add validation for if it is next an opposing colour
             {
                 return true;
             }
@@ -216,15 +216,21 @@ namespace Othello_Game_Assignment
             // if it's value is the same as isPlaying, change it's value to the same as isPlaying
             //update GUI
             //else if its value is != the as isPlaying repeat the loop
-            int col = c - 1;
+            c = c--; // currently trying to check where has been clicked which is outside of the array boundaries in this while loop as it is a 10
 
 
             do
             {
-                MessageBox.Show(gameSpace[r, col].ToString());
+         
+                gameSpace[r, c] = isPlaying;    
+                gameBoard.UpDateImages(gameSpace);
+                c--;
+                
             }
-            while (gameSpace[r, col] != isPlaying && col <= 0 && gameSpace[r, col--] != 10 || gameSpace[r, col--] != isPlaying);
+            while (gameSpace[r, c] != isPlaying && c <= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
      
+
+
 
             /*else
             {
