@@ -82,12 +82,15 @@ namespace Othello_Game_Assignment
             {
                 if (isPlaying == 0)
                 {
-                    UpdateGUI(r, c);  
+                    UpdateGUI(r, c);
+                    CheckLeft(r, c);
+                    
                 }
 
                 else 
                 {
                     UpdateGUI(r, c);
+                    CheckLeft(r, c);
                 }
 
                 PlayerTurn();
@@ -196,6 +199,45 @@ namespace Othello_Game_Assignment
                 gameSpace[r, c] = isPlaying;
                 gameBoard.UpDateImages(gameSpace);
             }
+        }
+
+
+
+
+        public void CheckLeft(int r, int c)
+        {
+
+            // maybe look to use a foreach loop - i.e. for each counter which != isPlaying which has a column number greater than a counter which is the same as isPlaying gets changed to the is playing value 
+            // we need to find everything in this row until we reach the edge
+
+            // foreach value in a row, check its value vs value of element clicked.
+            //if it != the same, check the element left of this.
+            // it it's value is 10 - break and do no thing
+            // if it's value is the same as isPlaying, change it's value to the same as isPlaying
+            //update GUI
+            //else if its value is != the as isPlaying repeat the loop
+            int col = c - 1;
+
+
+            do
+            {
+                MessageBox.Show(gameSpace[r, col].ToString());
+            }
+            while (gameSpace[r, col] != isPlaying && col <= 0 && gameSpace[r, col--] != 10 || gameSpace[r, col--] != isPlaying);
+     
+
+            /*else
+            {
+                gameSpace[r, col] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+            }*/
+
+            
+
+       
+
+
+
         }
 
 
