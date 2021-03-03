@@ -15,15 +15,21 @@ namespace Othello_Game_Assignment
     public partial class Form1 : Form
     {
         string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
-        int[,] gameSpace;
+        int[,] gameSpace = new int[8, 8]
+            {{10,10,10,10,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,0,1,10,10,10 },
+            { 10,10,10,1,0,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10}};
         GImageArray gameBoard;
         string player1;
         string player2;
         int isPlaying = 0;
-        int r;
-        int c;
-        const int rows = 8;
-        const int cols = 8;
+       
+
 
 
 
@@ -38,10 +44,8 @@ namespace Othello_Game_Assignment
 
         }
 
-        private void startNewGame_Click(object sender, EventArgs e)
+        public void startNewGame_Click(object sender, EventArgs e)
         {
-
-
 
 
             if (player1TextBox.Text == "" || player2TextBox.Text == "")
@@ -51,22 +55,9 @@ namespace Othello_Game_Assignment
 
             else
             {
-
-                int[,] gameSpace = new int[rows, cols]
-            {{10,10,10,10,10,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
-            { 10,10,10,0,1,10,10,10 },
-            { 10,10,10,1,0,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
-            { 10,10,10,10,10,10,10,10}};
                 gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
 
-
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-
-
 
             }
 
@@ -80,29 +71,34 @@ namespace Othello_Game_Assignment
         {
 
             
-                r = gameBoard.Get_Row(sender);
-                c = gameBoard.Get_Col(sender);
+                int r = gameBoard.Get_Row(sender);
+                int c = gameBoard.Get_Col(sender);
 
                 //firstly check if this is a legal move e.g. is there a black square in the 8 surrounding squares of this element. therefore psuedocode: is elementClicked next to a picturebox with the value of 0? If yes then change element if no then don't.
 
-                IsValidPosition();
+                IsValidPosition(r, c);
 
-                if (IsValidPosition() == true)
+                if (IsValidPosition(r, c) == true)
             {
                 if (isPlaying == 0)
                 {
-                  string isPlayingString = isPlaying.ToString();
-                  gameBoard.Set_Element(r, c, isPlayingString);
+                    UpdateGUI(r, c);  
                 }
 
-                else if (isPlaying == 1)
+                else 
                 {
-                    string isPlayingString = isPlaying.ToString();
-                    gameBoard.Set_Element(r, c, isPlayingString);
+                    UpdateGUI(r, c);
                 }
 
                 PlayerTurn();
             }
+
+                else
+            {
+                MessageBox.Show("Invalid placement of counter");
+            }
+
+
                 
 
 
@@ -171,7 +167,7 @@ namespace Othello_Game_Assignment
         }
 
 
-        public bool IsValidPosition()
+        public bool IsValidPosition(int r, int c)
         {
 
             PictureBox elementClicked = gameBoard.Get_Element(r, c);
@@ -185,6 +181,33 @@ namespace Othello_Game_Assignment
             {
                 return false;
             }
+        }
+
+        public void UpdateGUI(int r, int c)
+        {
+            if (isPlaying == 0)
+            {       
+                gameSpace[r, c] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+            }
+
+            else if (isPlaying == 1)
+            {
+                gameSpace[r, c] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -351,7 +374,7 @@ namespace Othello_Game_Assignment
 
 
 
-        }
+        
 
 
 
