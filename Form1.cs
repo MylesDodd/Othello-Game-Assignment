@@ -82,15 +82,53 @@ namespace Othello_Game_Assignment
             {
                 if (isPlaying == 0)
                 {
+
+                    if (CheckLeft(r, c) == true)
+                    {
+                        FlipLeft(r, c);
+                    }
+                    if (CheckRight(r, c) == true)
+                    {
+                        FlipRight(r, c);
+                    }
+                    if (CheckUp(r, c) == true)
+                    {
+                        FlipUp(r, c);
+                    }
+                    if (CheckDown(r, c) == true)
+                    {
+                        FlipDown(r, c);
+                    }
+
+
+
                     UpdateGUI(r, c);
-                    CheckLeft(r, c);
-                    
+
                 }
 
-                else 
+                else
                 {
+
+                    if (CheckLeft(r, c) == true)
+                    {
+                        FlipLeft(r, c);
+                    }
+                  if (CheckRight(r, c) == true)
+                    {
+                        FlipRight(r, c);
+                    }
+                    if (CheckUp(r, c) == true)
+                    {
+                        FlipUp(r, c);
+                    }
+                    if (CheckDown(r, c) == true)
+                    {
+                        FlipDown(r, c);
+                    }
+
+
                     UpdateGUI(r, c);
-                    CheckLeft(r, c);
+
                 }
 
                 PlayerTurn();
@@ -204,45 +242,141 @@ namespace Othello_Game_Assignment
 
 
 
-        public void CheckLeft(int r, int c)
+        // error with checking what needs to turn - if one statement is true 
+
+
+
+        public bool CheckLeft(int r, int c)
         {
+            if (c == 0 || gameSpace[r, c - 1] == 10)
+            {
+                return false;
+            }
 
-            // maybe look to use a foreach loop - i.e. for each counter which != isPlaying which has a column number greater than a counter which is the same as isPlaying gets changed to the is playing value 
-            // we need to find everything in this row until we reach the edge
-
-            // foreach value in a row, check its value vs value of element clicked.
-            //if it != the same, check the element left of this.
-            // it it's value is 10 - break and do no thing
-            // if it's value is the same as isPlaying, change it's value to the same as isPlaying
-            //update GUI
-            //else if its value is != the as isPlaying repeat the loop
-            c = c--; // currently trying to check where has been clicked which is outside of the array boundaries in this while loop as it is a 10
+            else return true;
 
 
+               
+        }
+
+        public void FlipLeft(int r, int c)
+        {
+            c = c--;
             do
             {
-         
-                gameSpace[r, c] = isPlaying;    
+
+                gameSpace[r, c] = isPlaying;
                 gameBoard.UpDateImages(gameSpace);
                 c--;
-                
+
             }
-            while (gameSpace[r, c] != isPlaying && c <= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-     
+            while (gameSpace[r, c] != isPlaying && c >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+        }
 
 
 
-            /*else
+        public bool CheckRight(int r, int c)
+        {
+            if (c == 7 || gameSpace[r, c + 1] == 10)
             {
-                gameSpace[r, col] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-            }*/
+                return false;
+            }
 
-            
-
-       
+     
+            else return true;
 
 
+
+        }
+
+
+        public void FlipRight(int r, int c)
+        {
+
+                c = c++;
+                do
+                {
+
+                    gameSpace[r, c] = isPlaying;
+                    gameBoard.UpDateImages(gameSpace);
+                    c++;
+
+                }
+                while (gameSpace[r, c] != isPlaying && c <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+           
+        }
+
+
+
+        public bool CheckUp(int r, int c)
+        {
+            if (r == 0 || gameSpace[r - 1, c] == 10)
+            {
+                return false;
+            }
+
+
+            else return true;
+
+
+
+        }
+
+
+
+
+
+
+
+        public void FlipUp(int r, int c)
+        {
+
+                r = r--;
+                do
+                {
+
+                    gameSpace[r, c] = isPlaying;
+                    gameBoard.UpDateImages(gameSpace);
+                    r--;
+
+                }
+                while (gameSpace[r, c] != isPlaying && r >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+    
+        }
+
+
+
+        public bool CheckDown (int r, int c)
+        {
+            if (r == 7 || gameSpace[r + 1, c] == 10)
+            {
+                return false;
+            }
+
+           
+            else return true;
+
+
+
+        }
+
+        public void FlipDown(int r, int c)
+        {
+
+
+          
+                r = r++;
+                do
+                {
+
+                    gameSpace[r, c] = isPlaying;
+                    gameBoard.UpDateImages(gameSpace);
+                    r++;
+
+                }
+                while (gameSpace[r, c] != isPlaying && r <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+
+           
 
         }
 
@@ -260,169 +394,170 @@ namespace Othello_Game_Assignment
 
 
 
-            //need to validate if it is in a position to actually change an element rather than if it is next to one
-            /*
-             if (playerTurn == true)
-             {
-                 PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
-                 PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
-                 PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
-                 PictureBox left = gameBoard.Get_Element(r, c - 1);
-                 PictureBox centre = gameBoard.Get_Element(r, c);
-                 PictureBox right = gameBoard.Get_Element(r, c + 1);
-                 PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
-                 PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
-                 PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
+
+        //need to validate if it is in a position to actually change an element rather than if it is next to one
+        /*
+         if (playerTurn == true)
+         {
+             PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
+             PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
+             PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
+             PictureBox left = gameBoard.Get_Element(r, c - 1);
+             PictureBox centre = gameBoard.Get_Element(r, c);
+             PictureBox right = gameBoard.Get_Element(r, c + 1);
+             PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
+             PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
+             PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
 
 
-                 //if the row or col is = 0 or 8 then do not run the commands related to that
+             //if the row or col is = 0 or 8 then do not run the commands related to that
 
 
-                 if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
-                   {
-                         MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
-                     }
-
-                 else if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
-                 {
-
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (topCenter.ImageLocation == imageDirectory + "1" + ".PNG")
-                     {
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (topRight.ImageLocation == imageDirectory + "1" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (left.ImageLocation == imageDirectory + "1" + ".PNG"){
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (right.ImageLocation == imageDirectory + "1" + ".PNG"){
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (bottomLeft.ImageLocation == imageDirectory + "1" + ".PNG"){
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (bottomCenter.ImageLocation == imageDirectory + "1" + ".PNG"){
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-                 else if (bottomRight.ImageLocation == imageDirectory + "1" + ".PNG"){
-                     gameBoard.Set_Element(r, c, "0");
-                     PlayerTurn();
-                 }
-
-
-                 else
-                 {
-                     MessageBox.Show("Invalid Placement of Black Counter, try again");
-                 }
-
-
-
-                 // error occurs here when selecting element in col 0 or col 7 because it attempts to check if there is something in the element to its left or right respectively (e.g. col -1 or col, 8) which do not exist
-             }
-
-            else if (playerTurn != true)
-             {
-                 // need to set these dynamically so edge elements do not result in exception
-                 PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
-                 PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
-                 PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
-                 PictureBox left = gameBoard.Get_Element(r, c - 1);
-                 PictureBox centre = gameBoard.Get_Element(r, c);
-                 PictureBox right = gameBoard.Get_Element(r, c + 1);
-                 PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
-                 PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
-                 PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-
-                 if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
-                 {
+             if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
+               {
                      MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
                  }
 
-                 else if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (topCenter.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (left.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (right.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
-                 else if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
-                 {
-                     gameBoard.Set_Element(r, c, "1");
-                     PlayerTurn();
-                 }
+             else if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
+             {
 
-                 else
-                 {
-                     MessageBox.Show("Invalid Placement of White Counter, try again");
-                 }
-
-
-
-
-
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
              }
+             else if (topCenter.ImageLocation == imageDirectory + "1" + ".PNG")
+                 {
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (topRight.ImageLocation == imageDirectory + "1" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (left.ImageLocation == imageDirectory + "1" + ".PNG"){
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (right.ImageLocation == imageDirectory + "1" + ".PNG"){
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (bottomLeft.ImageLocation == imageDirectory + "1" + ".PNG"){
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (bottomCenter.ImageLocation == imageDirectory + "1" + ".PNG"){
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+             else if (bottomRight.ImageLocation == imageDirectory + "1" + ".PNG"){
+                 gameBoard.Set_Element(r, c, "0");
+                 PlayerTurn();
+             }
+
+
+             else
+             {
+                 MessageBox.Show("Invalid Placement of Black Counter, try again");
+             }
+
+
+
+             // error occurs here when selecting element in col 0 or col 7 because it attempts to check if there is something in the element to its left or right respectively (e.g. col -1 or col, 8) which do not exist
+         }
+
+        else if (playerTurn != true)
+         {
+             // need to set these dynamically so edge elements do not result in exception
+             PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
+             PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
+             PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
+             PictureBox left = gameBoard.Get_Element(r, c - 1);
+             PictureBox centre = gameBoard.Get_Element(r, c);
+             PictureBox right = gameBoard.Get_Element(r, c + 1);
+             PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
+             PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
+             PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
+
+             if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
+             {
+                 MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
+             }
+
+             else if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (topCenter.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (left.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (right.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+             else if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
+             {
+                 gameBoard.Set_Element(r, c, "1");
+                 PlayerTurn();
+             }
+
+             else
+             {
+                 MessageBox.Show("Invalid Placement of White Counter, try again");
+             }
+
+
+
+
+
+         }
+     }*/
+
+
+
+        /*public void IsOutFlankingLeft()
+         {
+
+
+             // have where the element is clicked as r and c
+             //we then want to use these values to count up in a diagonal line and check the values of the images in this line 
+
+            // take col given by Which_Element_Clicked then find first instance of same colour in that row. Count inbetween these two figures then change anything if it needs changing.
+
          }*/
 
 
 
-            /*public void IsOutFlankingLeft()
-             {
-
-
-                 // have where the element is clicked as r and c
-                 //we then want to use these values to count up in a diagonal line and check the values of the images in this line 
-
-                // take col given by Which_Element_Clicked then find first instance of same colour in that row. Count inbetween these two figures then change anything if it needs changing.
-
-             }*/
 
 
 
 
 
 
-
-
-        
 
 
 
