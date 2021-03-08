@@ -28,7 +28,8 @@ namespace Othello_Game_Assignment
         string player1;
         string player2;
         int isPlaying = 0;
-       
+        bool validMove;
+
 
 
 
@@ -72,13 +73,26 @@ namespace Othello_Game_Assignment
 
             
                 int r = gameBoard.Get_Row(sender);
-                int c = gameBoard.Get_Col(sender);
+            int c = gameBoard.Get_Col(sender);
 
+
+            if (IsValidPosition(r,c) == true)
+            {
+                
+                LookNorth(r, c);
+                UpdateGameSpace(r, c);
+                UpdateGUI(r, c);
+
+            }
+            
                 //firstly check if this is a legal move e.g. is there a black square in the 8 surrounding squares of this element. therefore psuedocode: is elementClicked next to a picturebox with the value of 0? If yes then change element if no then don't.
 
-                IsValidPosition(r, c);
+                
 
-                if (IsValidPosition(r, c) == true)
+
+
+           
+        /*        if (IsValidPosition(r, c) == true)
             {
                 if (isPlaying == 0)
                 {
@@ -86,23 +100,41 @@ namespace Othello_Game_Assignment
                     if (CheckLeft(r, c) == true)
                     {
                         FlipLeft(r, c);
+                        UpdateGUI(r, c);
                     }
-                    if (CheckRight(r, c) == true)
+                    else if (CheckLeft(r,c) == false)
                     {
-                        FlipRight(r, c);
+                        if(CheckRight(r,c) == true)
+                        {
+                            FlipRight(r, c);
+                            UpdateGUI(r, c);
+                        }
+                        else if(CheckRight(r,c) == false)
+                        {
+                            if(CheckUp(r, c) == true)
+                            {
+                                FlipUp(r, c);
+                                UpdateGUI(r, c);
+                            }
+                            else if(CheckUp(r,c) == false)
+                            {
+                                if(CheckDown(r,c) == true)
+                                {
+                                    FlipDown(r, c);
+                                    UpdateGUI(r, c);
+                                }
+                                else
+                                {
+                                    
+
+                                }
+                            }
+                        }
                     }
-                    if (CheckUp(r, c) == true)
-                    {
-                        FlipUp(r, c);
-                    }
-                    if (CheckDown(r, c) == true)
-                    {
-                        FlipDown(r, c);
-                    }
+                    
 
 
 
-                    UpdateGUI(r, c);
 
                 }
 
@@ -112,22 +144,39 @@ namespace Othello_Game_Assignment
                     if (CheckLeft(r, c) == true)
                     {
                         FlipLeft(r, c);
+                        UpdateGUI(r, c);
                     }
-                  if (CheckRight(r, c) == true)
+                    else if (CheckLeft(r, c) == false)
                     {
-                        FlipRight(r, c);
-                    }
-                    if (CheckUp(r, c) == true)
-                    {
-                        FlipUp(r, c);
-                    }
-                    if (CheckDown(r, c) == true)
-                    {
-                        FlipDown(r, c);
+                        if (CheckRight(r, c) == true)
+                        {
+                            FlipRight(r, c);
+                            UpdateGUI(r, c);
+                        }
+                        else if (CheckRight(r, c) == false)
+                        {
+                            if (CheckUp(r, c) == true)
+                            {
+                                FlipUp(r, c);
+                                UpdateGUI(r, c);
+                            }
+                            else if (CheckUp(r, c) == false)
+                            {
+                                if (CheckDown(r, c) == true)
+                                {
+                                    FlipDown(r, c);
+                                    UpdateGUI(r, c);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid Move");
+
+                                }
+                            }
+                        }
                     }
 
-
-                    UpdateGUI(r, c);
+                    
 
                 }
 
@@ -137,7 +186,7 @@ namespace Othello_Game_Assignment
                 else
             {
                 MessageBox.Show("Invalid placement of counter");
-            }
+            }*/
 
 
                 
@@ -156,20 +205,62 @@ namespace Othello_Game_Assignment
         }
 
 
-        /* public void SetArrayValue() //potentially use this to search in the array for other values to set elements next to the element which has been clicked according to game logic
-         {  //currently function does not work - null object reference
+      
 
-             if (playerTurn == true)
-             {
-                 gameSpace[r, c] = 0;
-             }
 
-             else if (playerTurn == false)
-             {
-                 gameSpace[r, c] = 1;
-             }
 
-         }*/
+
+        public void LookNorth(int r, int c)
+        {
+            int newRow = r-1;
+            
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+
+            do
+                if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(c);
+                    newRow--;
+
+                    if (newRow < 0)
+                    {
+                        validMove = false;
+                        newRow = 0;
+                    }
+
+                    else
+                    {
+                        validMove = true;
+                    }
+                }
+
+            while (gameSpace[newRow, c] != isPlaying && validMove == true);
+
+
+            if (locationR.Count>0 && validMove == true)
+            {
+                for(int token =0; token <locationR.Count; token++)
+                {
+                    gameSpace[locationR[token], locationC[token]] = isPlaying;
+                    
+                }
+            }
+           
+            
+            
+           
+           
+
+                         
+        }
+
+
+
+
+
 
 
 
@@ -213,7 +304,8 @@ namespace Othello_Game_Assignment
 
             PictureBox elementClicked = gameBoard.Get_Element(r, c);
 
-            if (elementClicked.ImageLocation == imageDirectory + "10" + ".PNG") //add validation for if it is next an opposing colour
+
+            if (elementClicked.ImageLocation == imageDirectory + "10" + ".PNG")
             {
                 return true;
             }
@@ -222,21 +314,19 @@ namespace Othello_Game_Assignment
             {
                 return false;
             }
+
+        
         }
 
         public void UpdateGUI(int r, int c)
         {
-            if (isPlaying == 0)
-            {       
-                gameSpace[r, c] = isPlaying;
                 gameBoard.UpDateImages(gameSpace);
-            }
+        }
 
-            else if (isPlaying == 1)
-            {
-                gameSpace[r, c] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-            }
+
+        public void UpdateGameSpace(int r, int c)
+        {
+            gameSpace[r, c] = isPlaying;
         }
 
 
@@ -244,11 +334,11 @@ namespace Othello_Game_Assignment
 
         // error with checking what needs to turn - if one statement is true 
 
-
+        //row - gameSpace[row] = the amount of rows left to check in the array
 
         public bool CheckLeft(int r, int c)
         {
-            if (c == 0 || gameSpace[r, c - 1] == 10)
+            if (c == 0 || gameSpace[r, c - 1] == 10 || gameSpace[r, c - 1] == isPlaying) //add validation here to check all spaces left e.g. if there is a counter of the opposing colour then green then false
             {
                 return false;
             }
@@ -256,7 +346,7 @@ namespace Othello_Game_Assignment
             else return true;
 
 
-               
+
         }
 
         public void FlipLeft(int r, int c)
@@ -270,19 +360,19 @@ namespace Othello_Game_Assignment
                 c--;
 
             }
-            while (gameSpace[r, c] != isPlaying && c >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+            while (gameSpace[r, c] != isPlaying && c > 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying); // if there is a green on the otherside of all counters of opposing colour this should be an invalid move. 
         }
 
 
 
         public bool CheckRight(int r, int c)
         {
-            if (c == 7 || gameSpace[r, c + 1] == 10)
+            if (c == 7 || gameSpace[r, c + 1] == 10 || gameSpace[r, c + 1] == isPlaying)
             {
                 return false;
             }
 
-     
+
             else return true;
 
 
@@ -293,24 +383,24 @@ namespace Othello_Game_Assignment
         public void FlipRight(int r, int c)
         {
 
-                c = c++;
-                do
-                {
+            c = c++;
+            do
+            {
 
-                    gameSpace[r, c] = isPlaying;
-                    gameBoard.UpDateImages(gameSpace);
-                    c++;
+                gameSpace[r, c] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+                c++;
 
-                }
-                while (gameSpace[r, c] != isPlaying && c <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-           
+            }
+            while (gameSpace[r, c] != isPlaying && c <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+
         }
 
 
 
         public bool CheckUp(int r, int c)
         {
-            if (r == 0 || gameSpace[r - 1, c] == 10)
+            if (r == 0 || gameSpace[r - 1, c] == 10 || gameSpace[r - 1, c] == isPlaying)
             {
                 return false;
             }
@@ -331,29 +421,29 @@ namespace Othello_Game_Assignment
         public void FlipUp(int r, int c)
         {
 
-                r = r--;
-                do
-                {
+            r = r--;
+            do
+            {
 
-                    gameSpace[r, c] = isPlaying;
-                    gameBoard.UpDateImages(gameSpace);
-                    r--;
+                gameSpace[r, c] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+                r--;
 
-                }
-                while (gameSpace[r, c] != isPlaying && r >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-    
+            }
+            while (gameSpace[r, c] != isPlaying && r >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+
         }
 
 
 
-        public bool CheckDown (int r, int c)
+        public bool CheckDown(int r, int c)
         {
-            if (r == 7 || gameSpace[r + 1, c] == 10)
+            if (r == 7 || gameSpace[r + 1, c] == 10 || gameSpace[r + 1, c] == isPlaying)
             {
                 return false;
             }
 
-           
+
             else return true;
 
 
@@ -364,19 +454,19 @@ namespace Othello_Game_Assignment
         {
 
 
-          
-                r = r++;
-                do
-                {
 
-                    gameSpace[r, c] = isPlaying;
-                    gameBoard.UpDateImages(gameSpace);
-                    r++;
+            r = r++;
+            do
+            {
 
-                }
-                while (gameSpace[r, c] != isPlaying && r <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+                gameSpace[r, c] = isPlaying;
+                gameBoard.UpDateImages(gameSpace);
+                r++;
 
-           
+            }
+            while (gameSpace[r, c] != isPlaying && r <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
+
+
 
         }
 
@@ -388,186 +478,13 @@ namespace Othello_Game_Assignment
 
 
 
-
-
-
-
-
-
-
-        //need to validate if it is in a position to actually change an element rather than if it is next to one
-        /*
-         if (playerTurn == true)
-         {
-             PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
-             PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
-             PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
-             PictureBox left = gameBoard.Get_Element(r, c - 1);
-             PictureBox centre = gameBoard.Get_Element(r, c);
-             PictureBox right = gameBoard.Get_Element(r, c + 1);
-             PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
-             PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
-             PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-
-
-             //if the row or col is = 0 or 8 then do not run the commands related to that
-
-
-             if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
-               {
-                     MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
-                 }
-
-             else if (topLeft.ImageLocation == imageDirectory + "1" + ".PNG")
-             {
-
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (topCenter.ImageLocation == imageDirectory + "1" + ".PNG")
-                 {
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (topRight.ImageLocation == imageDirectory + "1" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (left.ImageLocation == imageDirectory + "1" + ".PNG"){
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (right.ImageLocation == imageDirectory + "1" + ".PNG"){
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (bottomLeft.ImageLocation == imageDirectory + "1" + ".PNG"){
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (bottomCenter.ImageLocation == imageDirectory + "1" + ".PNG"){
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-             else if (bottomRight.ImageLocation == imageDirectory + "1" + ".PNG"){
-                 gameBoard.Set_Element(r, c, "0");
-                 PlayerTurn();
-             }
-
-
-             else
-             {
-                 MessageBox.Show("Invalid Placement of Black Counter, try again");
-             }
-
-
-
-             // error occurs here when selecting element in col 0 or col 7 because it attempts to check if there is something in the element to its left or right respectively (e.g. col -1 or col, 8) which do not exist
-         }
-
-        else if (playerTurn != true)
-         {
-             // need to set these dynamically so edge elements do not result in exception
-             PictureBox topLeft = gameBoard.Get_Element(r - 1, c - 1);
-             PictureBox topCenter = gameBoard.Get_Element(r - 1, c);
-             PictureBox topRight = gameBoard.Get_Element(r - 1, c + 1);
-             PictureBox left = gameBoard.Get_Element(r, c - 1);
-             PictureBox centre = gameBoard.Get_Element(r, c);
-             PictureBox right = gameBoard.Get_Element(r, c + 1);
-             PictureBox bottomLeft = gameBoard.Get_Element(r + 1, c - 1);
-             PictureBox bottomCenter = gameBoard.Get_Element(r + 1, c);
-             PictureBox bottomRight = gameBoard.Get_Element(r + 1, c + 1);
-
-             if (centre.ImageLocation != imageDirectory + "10" + ".PNG")
-             {
-                 MessageBox.Show("You cannot place a counter ontop of one which has already been placed");
-             }
-
-             else if (topLeft.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (topCenter.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (topRight.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (left.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (right.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (bottomLeft.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (bottomCenter.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-             else if (bottomRight.ImageLocation == imageDirectory + "0" + ".PNG")
-             {
-                 gameBoard.Set_Element(r, c, "1");
-                 PlayerTurn();
-             }
-
-             else
-             {
-                 MessageBox.Show("Invalid Placement of White Counter, try again");
-             }
-
-
-
-
-
-         }
-     }*/
-
-
-
-        /*public void IsOutFlankingLeft()
-         {
-
-
-             // have where the element is clicked as r and c
-             //we then want to use these values to count up in a diagonal line and check the values of the images in this line 
-
-            // take col given by Which_Element_Clicked then find first instance of same colour in that row. Count inbetween these two figures then change anything if it needs changing.
-
-         }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
 }
+
+
+
+
 
 
