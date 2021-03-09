@@ -680,46 +680,258 @@ namespace Othello_Game_Assignment
 
             if (gameSpace[r, c] == 10)
             {
-                if (gameSpace[rowNeg, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+
+
+                if (c == 7 && r == 7)
                 {
-                    return true;
-                }
-                else if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
-                }
-                else if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
-                }
-                else if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
-                }
-                else if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
-                }
-                else if (gameSpace[r, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
-                }
-                else if (gameSpace[r, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
-                {
-                    return true;
+                    if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
 
-                else if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+
+                else if (c == 7 && r == 0)
                 {
-                    return true;
+                    if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowPos, colNeg] != 10)
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        return false;
+                    }
+
                 }
+
+                else if (c == 0 && r == 0)
+                {
+                    if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowPos, colPos] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                else if (c == 0 && r == 7)
+                {
+                    if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colPos] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+
+                else if (r == 7)
+                {
+                    if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                    if (gameSpace[rowNeg, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colPos] != 10)
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                else if (r == 0)
+                {
+                    if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowPos, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowPos, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+
+
+                else if (c == 0)
+                {
+                    if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+
+                     if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowPos, colPos] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+
+                else if (c == 7)
+                {
+                    if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowPos, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+               
 
                 else
                 {
-                    return false;
+                    if (gameSpace[rowNeg, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowPos, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowPos, colNeg] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowPos, c] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colPos] != isPlaying && gameSpace[r, colPos] != 10)
+                    {
+                        return true;
+                    }
+                     if (gameSpace[r, colNeg] != isPlaying && gameSpace[r, colNeg] != 10)
+                    {
+                        return true;
+                    }
+
+                     if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, c] != 10)
+                    {
+                        return true;
+                    }
+
+                    else
+                    {
+                        return false;
+                    }
+
                 }
 
+              
+
             }
+
             else
             {
                 return false;
