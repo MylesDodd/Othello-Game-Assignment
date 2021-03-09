@@ -21,8 +21,8 @@ namespace Othello_Game_Assignment
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,0,1,10,10,10 },
             { 10,10,10,1,0,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
-            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,1,10,10,10,10 },
+            { 10,10,10,1,10,10,10,10 },
             { 10,10,10,10,10,10,10,10}};
         GImageArray gameBoard;
         string player1;
@@ -73,13 +73,41 @@ namespace Othello_Game_Assignment
             {
 
                 FlipNorth(r, c);
-                FlipSouth(r, c);
-                FlipEast(r, c);
-                FlipWest(r, c);
-                FlipNorthEast(r, c);
-                FlipNorthWest(r, c);
-                FlipSouthEast(r, c);
-                FlipSouthWest(r, c);
+                if(CheckSouth(r,c) == true)
+                {
+                    FlipSouth(r, c);
+                }
+                
+                if(CheckEast(r,c) == true)
+                {
+                    FlipEast(r, c);
+                }
+               
+                if (CheckWest(r,c) == true)
+                {
+                    FlipWest(r, c);
+                }
+                
+                if(CheckNorthEast(r,c) == true)
+                {
+                    FlipNorthEast(r, c);
+                }
+                
+                if(CheckNorthWest(r,c) == true)
+                {
+                    FlipNorthWest(r, c);
+                }
+                
+                if(CheckSouthEast(r,c) == true)
+                {
+                    FlipSouthEast(r, c);
+                }
+                
+                if(CheckSouthWest(r,c) == true)
+                {
+                    FlipSouthWest(r, c);
+                }
+                
 
             
               
@@ -96,91 +124,29 @@ namespace Othello_Game_Assignment
 
         public bool CheckNorth(int r, int c)
         {
-            
-
-            for (int i = r - 1; i > 0; i++)
+            if (r == 0)
             {
-                int elementChecked = gameSpace[i, c];
-
-                if(elementChecked == 10)
-                {    
-                    return false;
-                }
-
-                if (isPlaying == 0)
-                {
-                    if (elementChecked == 1)
-                    {
-                         return true;
-                        
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return false;
-
-                    }
-                }
-
-                else if (isPlaying == 1)
-                {
-                    if (elementChecked == 1)
-                    {
-                        return false;
-                        
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return true;
-                    }
-                }
-  
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
-             return false;
         }
 
 
         public bool CheckSouth (int r, int c)
         {
 
-
-            for (int i = r + 1; i < 7; i++)
+            if(r == 7)
             {
-                int elementChecked = gameSpace[i, c];
-
-                if (elementChecked == 10)
-                {
-                    return false;
-                }
-                if (isPlaying == 0)
-                {
-                    if (elementChecked == 1)
-                    {
-                        return true;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return false;
-
-                    }
-                }
-
-                else
-                {
-                    if (elementChecked == 1)
-                    {
-                        return false;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return true;
-                    }
-                }
+                return false;
             }
-
-            return false;
+            else
+            {
+                return true;
+            }
 
         }
 
@@ -189,291 +155,92 @@ namespace Othello_Game_Assignment
         public bool CheckEast(int r, int c)
         {
 
-
-            for (int i = c + 1; i < 7; i++)
+            if (c == 7)
             {
-                int elementChecked = gameSpace[r, i];
-
-                if (elementChecked == 10)
-                {
-                    return false;
-                }
-
-                if (isPlaying == 0)
-                {
-                    if (elementChecked == 1)
-                    {
-                        return true;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return false;
-
-                    }
-                }
-
-                else
-                {
-                    if (elementChecked == 1)
-                    {
-                        return false;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return true;
-                    }
-                }
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
-            return false;
+
 
         }
 
 
         public bool CheckWest(int r, int c)
         {
-
-
-            for (int i = c - 1; i > 0; i++)
+            if (c == 0)
             {
-                
-                int elementChecked = gameSpace[r, i];
-
-                if (elementChecked == 10)
-                {
-                    return false;
-                }
-                if (isPlaying == 0)
-                {
-                    if (elementChecked == 1)
-                    {
-                        return true;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return false;
-
-                    }
-                }
-
-                else
-                {
-                    if (elementChecked == 1)
-                    {
-                        return false;
-
-                    }
-                    if (elementChecked == 0)
-                    {
-                        return true;
-                    }
-                }
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
-            return false;
+
 
         }
 
 
         public bool CheckNorthWest(int r, int c)
         {
-
-
-            for (int i = c - 1; i > 0; i++)
+            if (r == 0 || c == 0)
             {
-                for (int j = r - 1; i > 0; i++)
-                {
-                    int elementChecked = gameSpace[j, i];
-
-                    if (elementChecked == 10)
-                    {
-                        return false;
-                    }
-                    if (isPlaying == 0)
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return true;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return false;
-
-                        }
-                    }
-
-                    else
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return false;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
-            return false;
 
         }
 
 
         public bool CheckNorthEast(int r, int c)
         {
-
-
-            for (int i = c + 1; i > 0; i++)
+            if (r == 0 || c == 7)
             {
-                for (int j = r - 1; i > 0; i++)
-                {
-                    int elementChecked = gameSpace[j, i];
-
-                    if (elementChecked == 10)
-                    {
-                        return false;
-                    }
-                    if (isPlaying == 0)
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return true;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return false;
-
-                        }
-                    }
-
-                    else
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return false;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-
+                return false;
             }
-
-            return false;
-
+            else
+            {
+                return true;
+            }
         }
 
 
         public bool CheckSouthWest(int r, int c)
         {
-
-
-            for (int i = c - 1; i > 0; i++)
+            if (r == 7 || c == 0)
             {
-                for (int j = r + 1; i > 0; i++)
-                {
-                    int elementChecked = gameSpace[j, i];
-
-                    if (elementChecked == 10)
-                    {
-                        return false;
-                    }
-                    if (isPlaying == 0)
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return true;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return false;
-
-                        }
-                    }
-
-                    else
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return false;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-
+                return false;
             }
 
-            return false;
-
+            else
+            {
+                return true;
+            }
         }
 
         public bool CheckSouthEast(int r, int c)
         {
 
-
-            for (int i = c + 1; i > 0; i++)
+            if(r == 7 || c == 7)
             {
-                for (int j = r + 1; i > 0; i++)
-                {
-                    int elementChecked = gameSpace[j, i];
-
-                    if (elementChecked == 10)
-                    {
-                        return false;
-                    }
-                    if (isPlaying == 0)
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return true;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return false;
-
-                        }
-                    }
-
-                    else
-                    {
-                        if (elementChecked == 1)
-                        {
-                            return false;
-
-                        }
-                        if (elementChecked == 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-
+                return false;
             }
+            else
+            {
+                return true;
+            }
+           
 
-            return false;
 
+            
         }
 
         public void FlipNorth(int r, int c)
@@ -491,7 +258,7 @@ namespace Othello_Game_Assignment
                     locationC.Add(c);
                     newRow--;
 
-                    if (newRow < 0)
+                    if (newRow <= 0)
                     {
                         invalidMove = true;
                         newRow = 0;
