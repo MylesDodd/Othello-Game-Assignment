@@ -21,8 +21,8 @@ namespace Othello_Game_Assignment
             { 10,10,10,10,10,10,10,10 },
             { 10,10,10,0,1,10,10,10 },
             { 10,10,10,1,0,10,10,10 },
-            { 10,10,10,1,10,10,10,10 },
-            { 10,10,10,1,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
+            { 10,10,10,10,10,10,10,10 },
             { 10,10,10,10,10,10,10,10}};
         GImageArray gameBoard;
         string player1;
@@ -69,60 +69,39 @@ namespace Othello_Game_Assignment
             int c = gameBoard.Get_Col(sender);
 
 
-            bool validPosition = IsValidPosition(r, c);
+            
+           bool validPosition = IsValidPosition(r, c);
 
-           if(validPosition == true)
+            if (validPosition == true)
             {
-
                 FlipNorth(r, c);
-                if(CheckSouth(r,c) == true)
-                {
-                    FlipSouth(r, c);
-                }
-                
-                if(CheckEast(r,c) == true)
-                {
-                    FlipEast(r, c);
-                }
-               
-                if (CheckWest(r,c) == true)
-                {
-                    FlipWest(r, c);
-                }
-                
-                if(CheckNorthEast(r,c) == true)
-                {
-                    FlipNorthEast(r, c);
-                }
-                
-                if(CheckNorthWest(r,c) == true)
-                {
-                    FlipNorthWest(r, c);
-                }
-                
-                if(CheckSouthEast(r,c) == true)
-                {
-                    FlipSouthEast(r, c);
-                }
-                
-                if(CheckSouthWest(r,c) == true)
-                {
-                    FlipSouthWest(r, c);
-                }
-
                 UpdateGameSpace(r, c);
                 UpdateGUI(r, c);
                 PlayerTurn();
+                
+
+
+
+
+
 
             }
+
+
+            // put the values for their true or false into a local list then run the ones which are in the list? 
+
 
 
             else
             {
-                MessageBox.Show("Invalid move");
+                MessageBox.Show("Invalid placement - place in an empty space next to an opposing token");
             }
 
             
+
+
+
+
         }
 
          
@@ -133,13 +112,43 @@ namespace Othello_Game_Assignment
 
         public bool CheckNorth(int r, int c)
         {
-            if (r == 0)
-            {
-                return false;
-            }
-            else
+            bool invalidMove = false;
+            int newRow = r - 1;
+
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(c);
+                    newRow--;
+
+                    if (newRow <= 0)
+                    {
+                        invalidMove = true;
+                        newRow = 0;
+                    }
+
+
+                }
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
+              
+            }
+
+            else
+            {
+                return false;
             }
 
         }
@@ -148,13 +157,42 @@ namespace Othello_Game_Assignment
         public bool CheckSouth (int r, int c)
         {
 
-            if(r == 7)
-            {
-                return false;
-            }
-            else
+            int newRow = r + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(c);
+                    newRow++;
+
+                    if (newRow > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                    }
+
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+
+            while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
+            }
+
+            else
+            {
+                return false;
             }
 
         }
@@ -163,32 +201,86 @@ namespace Othello_Game_Assignment
 
         public bool CheckEast(int r, int c)
         {
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
 
-            if (c == 7)
+            do
+                if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
+                {
+                    locationC.Add(newCol);
+                    locationR.Add(r);
+                    newCol++;
+
+                    if (newCol > 7)
+                    {
+                        invalidMove = true;
+                        newCol = 7;
+                    }
+
+
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
+
+            if (locationC.Count > 0 && invalidMove != true)
             {
-                return false;
+
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
-
-
 
         }
 
 
         public bool CheckWest(int r, int c)
         {
-            if (c == 0)
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
+                {
+                    locationC.Add(newCol);
+                    locationR.Add(r);
+                    newCol--;
+
+                    if (newCol < 0)
+                    {
+                        invalidMove = true;
+                        newCol = 0;
+                    }
+
+
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
+
+            if (locationC.Count > 0 && invalidMove != true)
             {
-                return false;
+
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
-
 
 
         }
@@ -196,37 +288,137 @@ namespace Othello_Game_Assignment
 
         public bool CheckNorthWest(int r, int c)
         {
-            if (r == 0 || c == 0)
-            {
-                return false;
-            }
-            else
+            int newRow = r - 1;
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow--;
+                    newCol--;
+
+                    if (newRow < 0 && newCol > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 0;
+                        newCol = 7;
+                    }
+
+
+                }
+
+
+                else
+                {
+                    invalidMove = true;
+                }
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
             }
 
+
+            else
+            {
+                return false;
+            }
 
         }
 
 
-        public bool CheckNorthEast(int r, int c)
+        public bool CheckNorthEast(int r, int c) // +1 to col -1 to row
         {
-            if (r == 0 || c == 7)
-            {
-                return false;
-            }
-            else
+            int newRow = r - 1;
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow--;
+                    newCol++;
+
+                    if (newRow < 0 && newCol <0)
+                    {
+                        invalidMove = true;
+                        newRow = 0;
+                        newCol = 7;
+                    }
+
+
+                }
+
+
+                else
+                {
+                    invalidMove = true;
+                }
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
             }
+
+
+            else
+            {
+                return false;
+            }
+
         }
 
 
         public bool CheckSouthWest(int r, int c)
         {
-            if (r == 7 || c == 0)
+            int newRow = r + 1;
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow++;
+                    newCol--;
+
+                    if (newRow > 7 && newCol < 0)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                        newCol = 0;
+                    }
+
+
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
-                return false;
+
+                return true;
+
+                
             }
 
             else
@@ -238,24 +430,57 @@ namespace Othello_Game_Assignment
         public bool CheckSouthEast(int r, int c)
         {
 
-            if(r == 7 || c == 7)
+            int newRow = r + 1;
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow++;
+                    newCol++;
+
+                    if (newRow > 7 && newCol > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                        newCol = 7;
+                    }
+
+
+                }
+
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
             {
-                return false;
+                return true;
+                
             }
             else
             {
-                return true;
+                return false;
             }
-           
 
 
-            
         }
 
         public void FlipNorth(int r, int c)
         {
             bool invalidMove = false;
             int newRow = r - 1;
+
+            bool validMove = CheckNorth(r, c);
 
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
@@ -282,7 +507,7 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
                
                 for (int token = 0; token < locationR.Count; token++)
@@ -290,6 +515,11 @@ namespace Othello_Game_Assignment
                     gameSpace[locationR[token], c] = isPlaying;
 
                 }
+            }
+
+            else
+            {
+                MessageBox.Show("Invalid move North");
             }
 
         }
@@ -368,7 +598,7 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
 
-            if (locationC.Count > 0 && invalidMove == true)
+            if (locationC.Count > 0 && invalidMove != true)
             {
               
 
