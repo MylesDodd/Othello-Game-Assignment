@@ -28,21 +28,14 @@ namespace Othello_Game_Assignment
         string player1;
         string player2;
         int isPlaying = 0;
-        bool validMove;
-
-
-
-
-
-
+       
+       
 
 
 
         public Form1()
         {
-
             InitializeComponent();
-
         }
 
         public void startNewGame_Click(object sender, EventArgs e)
@@ -71,152 +64,425 @@ namespace Othello_Game_Assignment
         public void Which_Element_Clicked(object sender, EventArgs e)
         {
 
-            
-                int r = gameBoard.Get_Row(sender);
+
+            int r = gameBoard.Get_Row(sender);
             int c = gameBoard.Get_Col(sender);
 
 
-            if (IsValidPosition(r,c) == true)
+           if(IsValidPosition(r,c) == true)
             {
-                
-                LookNorth(r, c);
-                UpdateGameSpace(r, c);
-                UpdateGUI(r, c);
 
-            }
-            
-                //firstly check if this is a legal move e.g. is there a black square in the 8 surrounding squares of this element. therefore psuedocode: is elementClicked next to a picturebox with the value of 0? If yes then change element if no then don't.
-
-                
-
-
-
-           
-        /*        if (IsValidPosition(r, c) == true)
-            {
-                if (isPlaying == 0)
-                {
-
-                    if (CheckLeft(r, c) == true)
-                    {
-                        FlipLeft(r, c);
-                        UpdateGUI(r, c);
-                    }
-                    else if (CheckLeft(r,c) == false)
-                    {
-                        if(CheckRight(r,c) == true)
-                        {
-                            FlipRight(r, c);
-                            UpdateGUI(r, c);
-                        }
-                        else if(CheckRight(r,c) == false)
-                        {
-                            if(CheckUp(r, c) == true)
-                            {
-                                FlipUp(r, c);
-                                UpdateGUI(r, c);
-                            }
-                            else if(CheckUp(r,c) == false)
-                            {
-                                if(CheckDown(r,c) == true)
-                                {
-                                    FlipDown(r, c);
-                                    UpdateGUI(r, c);
-                                }
-                                else
-                                {
-                                    
-
-                                }
-                            }
-                        }
-                    }
-                    
-
-
-
-
-                }
-
-                else
-                {
-
-                    if (CheckLeft(r, c) == true)
-                    {
-                        FlipLeft(r, c);
-                        UpdateGUI(r, c);
-                    }
-                    else if (CheckLeft(r, c) == false)
-                    {
-                        if (CheckRight(r, c) == true)
-                        {
-                            FlipRight(r, c);
-                            UpdateGUI(r, c);
-                        }
-                        else if (CheckRight(r, c) == false)
-                        {
-                            if (CheckUp(r, c) == true)
-                            {
-                                FlipUp(r, c);
-                                UpdateGUI(r, c);
-                            }
-                            else if (CheckUp(r, c) == false)
-                            {
-                                if (CheckDown(r, c) == true)
-                                {
-                                    FlipDown(r, c);
-                                    UpdateGUI(r, c);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Invalid Move");
-
-                                }
-                            }
-                        }
-                    }
-
-                    
-
-                }
-
-                PlayerTurn();
-            }
-
-                else
-            {
-                MessageBox.Show("Invalid placement of counter");
-            }*/
-
-
-                
-
-
-
-
+                FlipNorth(r, c);
+                FlipSouth(r, c);
+                FlipEast(r, c);
+                FlipWest(r, c);
+                FlipNorthEast(r, c);
+                FlipNorthWest(r, c);
+                FlipSouthEast(r, c);
+                FlipSouthWest(r, c);
 
             
+              
+            }
 
-
-
-
-
+            UpdateGameSpace(r, c);
+            UpdateGUI(r, c);
+            PlayerTurn();
 
         }
 
 
-      
 
 
-
-
-        public void LookNorth(int r, int c)
+        public bool CheckNorth(int r, int c)
         {
-            int newRow = r-1;
             
+
+            for (int i = r - 1; i > 0; i++)
+            {
+                int elementChecked = gameSpace[i, c];
+
+                if(elementChecked == 10)
+                {    
+                    return false;
+                }
+
+                if (isPlaying == 0)
+                {
+                    if (elementChecked == 1)
+                    {
+                         return true;
+                        
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return false;
+
+                    }
+                }
+
+                else if (isPlaying == 1)
+                {
+                    if (elementChecked == 1)
+                    {
+                        return false;
+                        
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return true;
+                    }
+                }
+  
+            }
+
+             return false;
+        }
+
+
+        public bool CheckSouth (int r, int c)
+        {
+
+
+            for (int i = r + 1; i < 7; i++)
+            {
+                int elementChecked = gameSpace[i, c];
+
+                if (elementChecked == 10)
+                {
+                    return false;
+                }
+                if (isPlaying == 0)
+                {
+                    if (elementChecked == 1)
+                    {
+                        return true;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return false;
+
+                    }
+                }
+
+                else
+                {
+                    if (elementChecked == 1)
+                    {
+                        return false;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
+
+
+
+        public bool CheckEast(int r, int c)
+        {
+
+
+            for (int i = c + 1; i < 7; i++)
+            {
+                int elementChecked = gameSpace[r, i];
+
+                if (elementChecked == 10)
+                {
+                    return false;
+                }
+
+                if (isPlaying == 0)
+                {
+                    if (elementChecked == 1)
+                    {
+                        return true;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return false;
+
+                    }
+                }
+
+                else
+                {
+                    if (elementChecked == 1)
+                    {
+                        return false;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
+
+
+        public bool CheckWest(int r, int c)
+        {
+
+
+            for (int i = c - 1; i > 0; i++)
+            {
+                
+                int elementChecked = gameSpace[r, i];
+
+                if (elementChecked == 10)
+                {
+                    return false;
+                }
+                if (isPlaying == 0)
+                {
+                    if (elementChecked == 1)
+                    {
+                        return true;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return false;
+
+                    }
+                }
+
+                else
+                {
+                    if (elementChecked == 1)
+                    {
+                        return false;
+
+                    }
+                    if (elementChecked == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
+
+
+        public bool CheckNorthWest(int r, int c)
+        {
+
+
+            for (int i = c - 1; i > 0; i++)
+            {
+                for (int j = r - 1; i > 0; i++)
+                {
+                    int elementChecked = gameSpace[j, i];
+
+                    if (elementChecked == 10)
+                    {
+                        return false;
+                    }
+                    if (isPlaying == 0)
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return true;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return false;
+
+                        }
+                    }
+
+                    else
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return false;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+
+            }
+
+            return false;
+
+        }
+
+
+        public bool CheckNorthEast(int r, int c)
+        {
+
+
+            for (int i = c + 1; i > 0; i++)
+            {
+                for (int j = r - 1; i > 0; i++)
+                {
+                    int elementChecked = gameSpace[j, i];
+
+                    if (elementChecked == 10)
+                    {
+                        return false;
+                    }
+                    if (isPlaying == 0)
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return true;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return false;
+
+                        }
+                    }
+
+                    else
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return false;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+
+            }
+
+            return false;
+
+        }
+
+
+        public bool CheckSouthWest(int r, int c)
+        {
+
+
+            for (int i = c - 1; i > 0; i++)
+            {
+                for (int j = r + 1; i > 0; i++)
+                {
+                    int elementChecked = gameSpace[j, i];
+
+                    if (elementChecked == 10)
+                    {
+                        return false;
+                    }
+                    if (isPlaying == 0)
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return true;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return false;
+
+                        }
+                    }
+
+                    else
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return false;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+
+            }
+
+            return false;
+
+        }
+
+        public bool CheckSouthEast(int r, int c)
+        {
+
+
+            for (int i = c + 1; i > 0; i++)
+            {
+                for (int j = r + 1; i > 0; i++)
+                {
+                    int elementChecked = gameSpace[j, i];
+
+                    if (elementChecked == 10)
+                    {
+                        return false;
+                    }
+                    if (isPlaying == 0)
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return true;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return false;
+
+                        }
+                    }
+
+                    else
+                    {
+                        if (elementChecked == 1)
+                        {
+                            return false;
+
+                        }
+                        if (elementChecked == 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+
+            }
+
+            return false;
+
+        }
+
+        public void FlipNorth(int r, int c)
+        {
+            bool invalidMove = false;
+            int newRow = r - 1;
+
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
-
 
             do
                 if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
@@ -227,34 +493,364 @@ namespace Othello_Game_Assignment
 
                     if (newRow < 0)
                     {
-                        validMove = false;
+                        invalidMove = true;
                         newRow = 0;
                     }
 
-                    else
-                    {
-                        validMove = true;
-                    }
-                }
-
-            while (gameSpace[newRow, c] != isPlaying && validMove == true);
-
-
-            if (locationR.Count>0 && validMove == true)
-            {
-                for(int token =0; token <locationR.Count; token++)
-                {
-                    gameSpace[locationR[token], locationC[token]] = isPlaying;
                     
                 }
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
+               
+                for (int token = 0; token < locationR.Count; token++)
+                {
+                    gameSpace[locationR[token], c] = isPlaying;
+
+                }
             }
-           
+
+        }
+
+        public void FlipSouth (int r, int c)
+        {
+            int newRow = r + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(c);
+                    newRow++;
+
+                    if (newRow > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                    }
+
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+
+            while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
             
-            
-           
+
+                for (int token = 0; token < locationR.Count; token++)
+                {
+                    gameSpace[locationR[token], c] = isPlaying;
+
+                }
+            }
+        
+
+        }
+
+        public void FlipWest (int r, int c)
+        {
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
+                {
+                    locationC.Add(newCol);
+                    locationR.Add(r);
+                    newCol--;
+
+                    if (newCol < 0)
+                    {
+                        invalidMove = true;
+                        newCol = 0;
+                    }
+
+                    
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
+
+            if (locationC.Count > 0 && invalidMove == true)
+            {
+              
+
+                for (int token = 0; token < locationC.Count; token++)
+                {
+                    gameSpace[r, locationC[token]] = isPlaying;
+
+                }
+            }
+       
+
+        }
+
+
+
+        public void FlipEast(int r, int c)
+        {
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
+                {
+                    locationC.Add(newCol);
+                    locationR.Add(r);
+                    newCol++;
+
+                    if (newCol > 7)
+                    {
+                        invalidMove = true;
+                        newCol = 7;
+                    }
+
+                 
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
+
+            if (locationC.Count > 0 && invalidMove != true)
+            {
            
 
-                         
+                for (int token = 0; token < locationC.Count; token++)
+                {
+                    gameSpace[r, locationC[token]] = isPlaying;
+
+                }
+            }
+         
+
+        }
+
+        public void FlipNorthWest(int r, int c)
+        {
+            int newRow = r - 1;
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow--;
+                    newCol--;
+
+                    if (newRow < 0 && newCol < 0)
+                    {
+                        invalidMove = true;
+                        newRow = 0;
+                        newCol = 0;
+                    }
+
+                    
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
+
+                for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
+                {
+                    for(int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
+                    {
+                        gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                    }       
+                   
+                }
+            }
+
+
+
+        }
+
+        public void FlipNorthEast(int r, int c)
+        {
+            int newRow = r - 1;
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow--;
+                    newCol++;
+
+                    if (newRow < 0 && newCol > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 0;
+                        newCol = 7;
+                    }
+
+                 
+                }
+
+
+                else
+                {
+                    invalidMove = true;
+                } 
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
+
+                for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
+                {
+                    for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
+                    {
+                        gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                    }
+
+                }
+            }
+
+
+
+        }
+
+        public void FlipSouthEast(int r, int c)
+        {
+            int newRow = r + 1;
+            int newCol = c + 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow++;
+                    newCol++;
+
+                    if (newRow > 7 && newCol > 7)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                        newCol = 7;
+                    }
+
+                   
+                }
+
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
+
+                for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
+                {
+                    for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
+                    {
+                        gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                    }
+
+                }
+            }
+
+
+
+        }
+
+        public void FlipSouthWest(int r, int c)
+        {
+            int newRow = r + 1;
+            int newCol = c - 1;
+            bool invalidMove = false;
+            List<int> locationR = new List<int> { };
+            List<int> locationC = new List<int> { };
+
+            do
+                if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
+                {
+                    locationR.Add(newRow);
+                    locationC.Add(newCol);
+                    newRow++;
+                    newCol--;
+
+                    if (newRow > 7 && newCol < 0)
+                    {
+                        invalidMove = true;
+                        newRow = 7;
+                        newCol = 0;
+                    }
+
+                    
+                }
+
+                else
+                {
+                    invalidMove = true;
+                }
+
+            while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
+
+            if (locationR.Count > 0 && invalidMove != true)
+            {
+
+                for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
+                {
+                    for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
+                    {
+                        gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                    }
+
+                }
+            }
+
+
+
         }
 
 
@@ -315,12 +911,12 @@ namespace Othello_Game_Assignment
                 return false;
             }
 
-        
+
         }
 
         public void UpdateGUI(int r, int c)
         {
-                gameBoard.UpDateImages(gameSpace);
+            gameBoard.UpDateImages(gameSpace);
         }
 
 
@@ -336,139 +932,6 @@ namespace Othello_Game_Assignment
 
         //row - gameSpace[row] = the amount of rows left to check in the array
 
-        public bool CheckLeft(int r, int c)
-        {
-            if (c == 0 || gameSpace[r, c - 1] == 10 || gameSpace[r, c - 1] == isPlaying) //add validation here to check all spaces left e.g. if there is a counter of the opposing colour then green then false
-            {
-                return false;
-            }
-
-            else return true;
-
-
-
-        }
-
-        public void FlipLeft(int r, int c)
-        {
-            c = c--;
-            do
-            {
-
-                gameSpace[r, c] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-                c--;
-
-            }
-            while (gameSpace[r, c] != isPlaying && c > 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying); // if there is a green on the otherside of all counters of opposing colour this should be an invalid move. 
-        }
-
-
-
-        public bool CheckRight(int r, int c)
-        {
-            if (c == 7 || gameSpace[r, c + 1] == 10 || gameSpace[r, c + 1] == isPlaying)
-            {
-                return false;
-            }
-
-
-            else return true;
-
-
-
-        }
-
-
-        public void FlipRight(int r, int c)
-        {
-
-            c = c++;
-            do
-            {
-
-                gameSpace[r, c] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-                c++;
-
-            }
-            while (gameSpace[r, c] != isPlaying && c <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-
-        }
-
-
-
-        public bool CheckUp(int r, int c)
-        {
-            if (r == 0 || gameSpace[r - 1, c] == 10 || gameSpace[r - 1, c] == isPlaying)
-            {
-                return false;
-            }
-
-
-            else return true;
-
-
-
-        }
-
-
-
-
-
-
-
-        public void FlipUp(int r, int c)
-        {
-
-            r = r--;
-            do
-            {
-
-                gameSpace[r, c] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-                r--;
-
-            }
-            while (gameSpace[r, c] != isPlaying && r >= 0 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-
-        }
-
-
-
-        public bool CheckDown(int r, int c)
-        {
-            if (r == 7 || gameSpace[r + 1, c] == 10 || gameSpace[r + 1, c] == isPlaying)
-            {
-                return false;
-            }
-
-
-            else return true;
-
-
-
-        }
-
-        public void FlipDown(int r, int c)
-        {
-
-
-
-            r = r++;
-            do
-            {
-
-                gameSpace[r, c] = isPlaying;
-                gameBoard.UpDateImages(gameSpace);
-                r++;
-
-            }
-            while (gameSpace[r, c] != isPlaying && r <= 7 && gameSpace[r, c] != 10 || gameSpace[r, c] != isPlaying);
-
-
-
-        }
 
 
 
