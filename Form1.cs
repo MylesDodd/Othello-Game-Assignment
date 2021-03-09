@@ -69,7 +69,9 @@ namespace Othello_Game_Assignment
             int c = gameBoard.Get_Col(sender);
 
 
-           if(IsValidPosition(r,c) == true)
+            bool validPosition = IsValidPosition(r, c);
+
+           if(validPosition == true)
             {
 
                 FlipNorth(r, c);
@@ -107,17 +109,24 @@ namespace Othello_Game_Assignment
                 {
                     FlipSouthWest(r, c);
                 }
-                
 
-            
-              
+                UpdateGameSpace(r, c);
+                UpdateGUI(r, c);
+                PlayerTurn();
+
             }
 
-            UpdateGameSpace(r, c);
-            UpdateGUI(r, c);
-            PlayerTurn();
 
+            else
+            {
+                MessageBox.Show("Invalid move");
+            }
+
+            
         }
+
+         
+
 
 
 
@@ -664,22 +673,59 @@ namespace Othello_Game_Assignment
 
         public bool IsValidPosition(int r, int c)
         {
+            int rowNeg = r - 1;
+            int rowPos = r + 1;
+            int colNeg = c - 1;
+            int colPos = c + 1;
 
-            PictureBox elementClicked = gameBoard.Get_Element(r, c);
-
-
-            if (elementClicked.ImageLocation == imageDirectory + "10" + ".PNG")
+            if (gameSpace[r, c] == 10)
             {
-                return true;
-            }
+                if (gameSpace[rowNeg, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[rowNeg, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[rowPos, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[rowPos, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[rowPos, c] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[r, colPos] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+                else if (gameSpace[r, colNeg] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
 
+                else if (gameSpace[rowNeg, c] != isPlaying && gameSpace[rowNeg, colNeg] != 10)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+
+            }
             else
             {
                 return false;
             }
-
-
         }
+
 
         public void UpdateGUI(int r, int c)
         {
