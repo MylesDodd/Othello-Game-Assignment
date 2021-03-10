@@ -33,6 +33,7 @@ namespace Othello_Game_Assignment
         int isPlaying = 0;
         int player0Score;
         int player1Score;
+        bool gameInProgress;
        
        
 
@@ -46,15 +47,50 @@ namespace Othello_Game_Assignment
         }
 
 
+        public void saveGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = Directory.GetCurrentDirectory() + "\\";
+
+            var stringBuilder = new StringBuilder();
+            
+            foreach(var arrayElement in gameSpace)
+            {
+                stringBuilder.AppendLine(arrayElement.ToString());
+            }
+
+            File.AppendAllText(filePath + "array.txt", stringBuilder.ToString());
+            File.WriteAllText(filePath + "array.txt", stringBuilder.ToString());
+
+        }
+
+
+        public void loadGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+
+     
+
+            
+        }
+
+
+        
+
+
+
         public void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (player1TextBox.Text == "" || player2TextBox.Text == "")
             {
                 MessageBox.Show("Please set the player names");
             }
 
+            
+
             else
             {
+                gameInProgress = true;
                 gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
                 player1Score = 2;
@@ -89,8 +125,6 @@ namespace Othello_Game_Assignment
                 }
 
 
-
-
             }
 
 
@@ -107,77 +141,7 @@ namespace Othello_Game_Assignment
                 MessageBox.Show("Invalid placement - place in an empty space next to an opposing token");
             }
         }
-       /* public void startNewGame_Click(object sender, EventArgs e)
-        {
-
-            if (player1TextBox.Text == "" || player2TextBox.Text == "")
-            {
-                MessageBox.Show("Please set the player names");
-            }
-
-            else
-            {
-                gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);        
-                gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-                player1Score = 2;
-                player0Score = 2;
-                player0ScoreLabel.Text = player0Score.ToString();
-                player1ScoreLabel.Text = player1Score.ToString();
-               
-            }
-
-        }
-
-
-        public void Which_Element_Clicked(object sender, EventArgs e)
-        {
-
-            int r = gameBoard.Get_Row(sender);
-            int c = gameBoard.Get_Col(sender);
-
-            bool validPosition = IsValidPosition(r, c);
-
-            if (validPosition == true)
-            {
-                {
-                    FlipNorth(r, c);
-                    FlipSouth(r, c);
-                    FlipEast(r, c);
-                    FlipWest(r, c);
-                    FlipSouthEast(r, c);
-                    FlipNorthEast(r, c);
-                    FlipNorthWest(r, c);
-                    FlipNorthEast(r, c);
-                }
-
-               
-
-                
-            }
-
-
-
-
-           
-
-            // put the values for their true or false into a local list then run the ones which are in the list? 
-
-
-
-            else
-            {
-                MessageBox.Show("Invalid placement - place in an empty space next to an opposing token");
-            }
-
-
-
-
-
-
-        }*/
-
-
-
+     
 
 
 
@@ -1474,7 +1438,14 @@ namespace Othello_Game_Assignment
             } 
         }
 
-       
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(gameInProgress == true)
+            {
+                MessageBox.Show("Do you want to save your current game? ");
+            }
+   
+        }
     }
 
 
