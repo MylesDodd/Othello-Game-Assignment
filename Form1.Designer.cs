@@ -35,7 +35,6 @@ namespace Othello_Game_Assignment
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startNewGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.player1TextBox = new System.Windows.Forms.TextBox();
@@ -67,12 +66,14 @@ namespace Othello_Game_Assignment
             // 
             // newGameToolStripMenuItem
             // 
+            this.newGameToolStripMenuItem.CheckOnClick = true;
             this.newGameToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newGameToolStripMenuItem.Image")));
             this.newGameToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             this.newGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newGameToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.newGameToolStripMenuItem.Text = "&New Game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -85,16 +86,6 @@ namespace Othello_Game_Assignment
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // startNewGame
-            // 
-            this.startNewGame.Location = new System.Drawing.Point(12, 27);
-            this.startNewGame.Name = "startNewGame";
-            this.startNewGame.Size = new System.Drawing.Size(75, 23);
-            this.startNewGame.TabIndex = 1;
-            this.startNewGame.Text = "New Game";
-            this.startNewGame.UseVisualStyleBackColor = true;
-            this.startNewGame.Click += new System.EventHandler(this.startNewGame_Click);
             // 
             // label1
             // 
@@ -158,11 +149,9 @@ namespace Othello_Game_Assignment
             this.Controls.Add(this.player1TextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.startNewGame);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -177,7 +166,6 @@ namespace Othello_Game_Assignment
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.Button startNewGame;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox player1TextBox;
