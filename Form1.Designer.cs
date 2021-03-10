@@ -40,6 +40,8 @@ namespace Othello_Game_Assignment
             this.label2 = new System.Windows.Forms.Label();
             this.player1TextBox = new System.Windows.Forms.TextBox();
             this.player2TextBox = new System.Windows.Forms.TextBox();
+            this.player0ScoreLabel = new System.Windows.Forms.Label();
+            this.player1ScoreLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,11 +129,31 @@ namespace Othello_Game_Assignment
             this.player2TextBox.Size = new System.Drawing.Size(100, 23);
             this.player2TextBox.TabIndex = 5;
             // 
+            // player0ScoreLabel
+            // 
+            this.player0ScoreLabel.AutoSize = true;
+            this.player0ScoreLabel.Location = new System.Drawing.Point(77, 407);
+            this.player0ScoreLabel.Name = "player0ScoreLabel";
+            this.player0ScoreLabel.Size = new System.Drawing.Size(27, 15);
+            this.player0ScoreLabel.TabIndex = 6;
+            this.player0ScoreLabel.Text = "egg";
+            // 
+            // player1ScoreLabel
+            // 
+            this.player1ScoreLabel.AutoSize = true;
+            this.player1ScoreLabel.Location = new System.Drawing.Point(435, 404);
+            this.player1ScoreLabel.Name = "player1ScoreLabel";
+            this.player1ScoreLabel.Size = new System.Drawing.Size(38, 15);
+            this.player1ScoreLabel.TabIndex = 7;
+            this.player1ScoreLabel.Text = "label3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.player1ScoreLabel);
+            this.Controls.Add(this.player0ScoreLabel);
             this.Controls.Add(this.player2TextBox);
             this.Controls.Add(this.player1TextBox);
             this.Controls.Add(this.label2);
@@ -140,6 +162,7 @@ namespace Othello_Game_Assignment
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -158,7 +181,9 @@ namespace Othello_Game_Assignment
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox player1TextBox;
-        private System.Windows.Forms.TextBox player2TextBox;
+        private System.Windows.Forms.TextBox player2TextBox;   
+        private System.Windows.Forms.Label player1ScoreLabel;
+        private System.Windows.Forms.Label player0ScoreLabel;
     }
 }
 

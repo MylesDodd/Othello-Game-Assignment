@@ -28,8 +28,12 @@ namespace Othello_Game_Assignment
         string player1;
         string player2;
         int isPlaying = 0;
+        int player0Score;
+        int player1Score;
+    
        
-       
+
+
 
 
 
@@ -42,6 +46,10 @@ namespace Othello_Game_Assignment
         {
 
 
+            
+           
+
+
             if (player1TextBox.Text == "" || player2TextBox.Text == "")
             {
                 MessageBox.Show("Please set the player names");
@@ -49,11 +57,17 @@ namespace Othello_Game_Assignment
 
             else
             {
-                gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
-
+                gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);        
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-
+                player1Score = 2;
+                player0Score = 2;
+                player0ScoreLabel.Text = player0Score.ToString();
+                player1ScoreLabel.Text = player1Score.ToString();
+               
             }
+
+
+            
 
 
 
@@ -69,24 +83,38 @@ namespace Othello_Game_Assignment
             int c = gameBoard.Get_Col(sender);
 
 
-            
-           bool validPosition = IsValidPosition(r, c);
+
+            bool validPosition = IsValidPosition(r, c);
 
             if (validPosition == true)
             {
-                FlipNorth(r, c);
-                UpdateGameSpace(r, c);
-                UpdateGUI(r, c);
+
+               
+                {
+                    FlipNorth(r, c);
+                    FlipSouth(r, c);
+                    FlipEast(r, c);
+                    FlipWest(r, c);
+                    FlipSouthEast(r, c);
+                    FlipNorthEast(r, c);
+                    FlipNorthWest(r, c);
+                    FlipNorthEast(r, c);
+
+                }
+
+
                 PlayerTurn();
+               
+
                 
 
-
-
-
-
-
+                
             }
 
+
+
+
+           
 
             // put the values for their true or false into a local list then run the ones which are in the list? 
 
@@ -97,14 +125,14 @@ namespace Othello_Game_Assignment
                 MessageBox.Show("Invalid placement - place in an empty space next to an opposing token");
             }
 
-            
+
 
 
 
 
         }
 
-         
+
 
 
 
@@ -143,7 +171,7 @@ namespace Othello_Game_Assignment
             if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
-              
+
             }
 
             else
@@ -154,7 +182,7 @@ namespace Othello_Game_Assignment
         }
 
 
-        public bool CheckSouth (int r, int c)
+        public bool CheckSouth(int r, int c)
         {
 
             int newRow = r + 1;
@@ -349,7 +377,7 @@ namespace Othello_Game_Assignment
                     newRow--;
                     newCol++;
 
-                    if (newRow < 0 && newCol <0)
+                    if (newRow < 0 && newCol < 0)
                     {
                         invalidMove = true;
                         newRow = 0;
@@ -418,7 +446,7 @@ namespace Othello_Game_Assignment
 
                 return true;
 
-                
+
             }
 
             else
@@ -465,7 +493,7 @@ namespace Othello_Game_Assignment
             if (locationR.Count > 0 && invalidMove != true)
             {
                 return true;
-                
+
             }
             else
             {
@@ -498,7 +526,6 @@ namespace Othello_Game_Assignment
                         newRow = 0;
                     }
 
-                    
                 }
                 else
                 {
@@ -509,18 +536,37 @@ namespace Othello_Game_Assignment
 
             if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
-               
+
                 for (int token = 0; token < locationR.Count; token++)
                 {
                     gameSpace[locationR[token], c] = isPlaying;
+                    UpdateGameSpace(r, c);
+                    if (isPlaying == 0)
+                    {
+                        
+                        int tokensFlipped = locationR.Count;
+                        player0Score = player0Score + tokensFlipped + 1;
+                        player1Score = player1Score - tokensFlipped;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+                    else
+                    {
+                       
+                        int tokensFlipped = locationR.Count;
+                        player0Score = player0Score - tokensFlipped;
+                        player1Score = player1Score + tokensFlipped + 1;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+
+                    UpdateGUI(r, c);
 
                 }
             }
 
-            else
-            {
-                MessageBox.Show("Invalid move North");
-            }
+            
+
 
         }
 
@@ -530,6 +576,10 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+
+
+            bool validMove = CheckSouth(r, c);
 
             do
                 if (gameSpace[newRow, c] != isPlaying && gameSpace[newRow, c] != 10)
@@ -554,17 +604,45 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[newRow, c] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
             
 
                 for (int token = 0; token < locationR.Count; token++)
                 {
                     gameSpace[locationR[token], c] = isPlaying;
+                    UpdateGameSpace(r, c);
+                    if (isPlaying == 0)
+                    {
 
+                        int tokensFlipped = locationR.Count;
+                        player0Score = player0Score + tokensFlipped + 1;
+                        player1Score = player1Score - tokensFlipped;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+                    else
+                    {
+
+                        int tokensFlipped = locationR.Count;
+                        player0Score = player0Score - tokensFlipped;
+                        player1Score = player1Score + tokensFlipped + 1;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+
+
+                    UpdateGUI(r, c);
+                    
                 }
             }
-        
+
+            else
+            {
+                
+            }
+
+          
 
         }
 
@@ -574,6 +652,8 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+            bool validMove = CheckWest(r, c);
 
             do
                 if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
@@ -596,17 +676,42 @@ namespace Othello_Game_Assignment
                     invalidMove = true;
                 }
 
-            while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
+            while (gameSpace[r, newCol] != isPlaying && invalidMove != true && validMove != false);
 
-            if (locationC.Count > 0 && invalidMove != true)
+            if (locationC.Count > 0 && invalidMove != true )
             {
               
 
                 for (int token = 0; token < locationC.Count; token++)
                 {
                     gameSpace[r, locationC[token]] = isPlaying;
+                    UpdateGameSpace(r, c);
+                    if (isPlaying == 0)
+                    {
 
+                        int tokensFlipped = locationC.Count;
+                        player0Score = player0Score + tokensFlipped + 1;
+                        player1Score = player1Score - tokensFlipped;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+                    else
+                    {
+
+                        int tokensFlipped = locationC.Count;
+                        player0Score = player0Score - tokensFlipped;
+                        player1Score = player1Score + tokensFlipped + 1;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+
+                    UpdateGUI(r, c);
                 }
+            }
+
+            else
+            {
+             
             }
        
 
@@ -620,6 +725,8 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+            bool validMove = CheckEast(r, c);
 
             do
                 if (gameSpace[r, newCol] != isPlaying && gameSpace[r, newCol] != 10)
@@ -644,15 +751,40 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[r, newCol] != isPlaying && invalidMove != true);
 
-            if (locationC.Count > 0 && invalidMove != true)
+            if (locationC.Count > 0 && invalidMove != true && validMove != false)
             {
            
 
                 for (int token = 0; token < locationC.Count; token++)
                 {
                     gameSpace[r, locationC[token]] = isPlaying;
+                    UpdateGameSpace(r, c);
+                    if (isPlaying == 0)
+                    {
 
+                        int tokensFlipped = locationC.Count;
+                        player0Score = player0Score + tokensFlipped + 1;
+                        player1Score = player1Score - tokensFlipped;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+                    else
+                    {
+
+                        int tokensFlipped = locationC.Count;
+                        player0Score = player0Score - tokensFlipped;
+                        player1Score = player1Score + tokensFlipped + 1;
+                        player0ScoreLabel.Text = player0Score.ToString();
+                        player1ScoreLabel.Text = player1Score.ToString();
+                    }
+
+                    UpdateGUI(r, c);
                 }
+            }
+
+            else
+            {
+               
             }
          
 
@@ -665,6 +797,8 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+            bool validMove = CheckNorthWest(r, c);
 
             do
                 if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
@@ -691,7 +825,7 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false) 
             {
 
                 for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
@@ -699,9 +833,35 @@ namespace Othello_Game_Assignment
                     for(int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
                     {
                         gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                        UpdateGameSpace(r, c);
+                        if (isPlaying == 0)
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score + tokensFlipped + 1;
+                            player1Score = player1Score - tokensFlipped;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+                        else
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score - tokensFlipped;
+                            player1Score = player1Score + tokensFlipped + 1;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+
+                        UpdateGUI(r, c);
                     }       
                    
                 }
+            }
+
+            else
+            {
+                
             }
 
 
@@ -715,6 +875,9 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+
+            bool validMove = CheckNorthEast(r, c);
 
             do
                 if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
@@ -741,7 +904,7 @@ namespace Othello_Game_Assignment
                 } 
             while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
 
                 for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
@@ -749,10 +912,33 @@ namespace Othello_Game_Assignment
                     for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
                     {
                         gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                        UpdateGameSpace(r, c);
+                        if (isPlaying == 0)
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score + tokensFlipped + 1;
+                            player1Score = player1Score - tokensFlipped;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+                        else
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score - tokensFlipped;
+                            player1Score = player1Score + tokensFlipped + 1;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+
+                        UpdateGUI(r, c);
                     }
 
                 }
             }
+
+            
 
 
 
@@ -765,6 +951,8 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+            bool validMove = CheckSouthEast(r, c);
 
             do
                 if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
@@ -792,7 +980,7 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
 
                 for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
@@ -800,6 +988,27 @@ namespace Othello_Game_Assignment
                     for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
                     {
                         gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                        UpdateGameSpace(r, c);
+                        if (isPlaying == 0)
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score + tokensFlipped + 1;
+                            player1Score = player1Score - tokensFlipped;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+                        else
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score - tokensFlipped;
+                            player1Score = player1Score + tokensFlipped + 1;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+
+                        UpdateGUI(r, c);
                     }
 
                 }
@@ -816,6 +1025,8 @@ namespace Othello_Game_Assignment
             bool invalidMove = false;
             List<int> locationR = new List<int> { };
             List<int> locationC = new List<int> { };
+
+            bool validMove = CheckSouthEast(r, c);
 
             do
                 if (gameSpace[newRow, newCol] != isPlaying && gameSpace[newRow, newCol] != 10)
@@ -842,7 +1053,7 @@ namespace Othello_Game_Assignment
 
             while (gameSpace[newRow, newCol] != isPlaying && invalidMove != true);
 
-            if (locationR.Count > 0 && invalidMove != true)
+            if (locationR.Count > 0 && invalidMove != true && validMove != false)
             {
 
                 for (int tokenRow = 0; tokenRow < locationR.Count; tokenRow++)
@@ -850,6 +1061,27 @@ namespace Othello_Game_Assignment
                     for (int tokenCol = 0; tokenCol < locationC.Count; tokenCol++)
                     {
                         gameSpace[locationR[tokenRow], locationC[tokenCol]] = isPlaying;
+                        UpdateGameSpace(r, c);
+                        if(isPlaying == 0)
+                    {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score + tokensFlipped + 1;
+                            player1Score = player1Score - tokensFlipped;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+                    else
+                        {
+
+                            int tokensFlipped = locationR.Count;
+                            player0Score = player0Score - tokensFlipped;
+                            player1Score = player1Score + tokensFlipped + 1;
+                            player0ScoreLabel.Text = player0Score.ToString();
+                            player1ScoreLabel.Text = player1Score.ToString();
+                        }
+
+                        UpdateGUI(r, c);
                     }
 
                 }
@@ -908,7 +1140,7 @@ namespace Othello_Game_Assignment
             int colNeg = c - 1;
             int colPos = c + 1;
 
-            if (gameSpace[r, c] == 10)
+            if (gameSpace[r, c] == 10 && r >= 0 || r <= 7 && c >=  0 || c <= 7)
             {
 
 
@@ -1180,12 +1412,23 @@ namespace Othello_Game_Assignment
             gameSpace[r, c] = isPlaying;
         }
 
+       
+       
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
 
 
 
         // error with checking what needs to turn - if one statement is true 
 
         //row - gameSpace[row] = the amount of rows left to check in the array
+
 
 
 
