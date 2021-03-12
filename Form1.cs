@@ -1386,7 +1386,19 @@ namespace Othello_Game_Assignment
             } 
         } */
 
-
+        public void SetIsPlayingLabel()
+        {
+            if (isPlaying == 1)
+            {
+                whitePlayingLabel.Visible = true;
+                blackPlayingLabel.Visible = false;
+            }
+            else
+            {
+                blackPlayingLabel.Visible = true;
+                whitePlayingLabel.Visible = false;
+            }
+        }
       
 
 
@@ -1459,13 +1471,18 @@ namespace Othello_Game_Assignment
                     stringBuilder.Append(arrayElement + ",".ToString());
                 }
                 
-              /*  stringBuilder.Remove(stringBuilder.Length - 1, 1);
+               stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
                 var player1Name = player1TextBox.Text.ToString() + ",";
                 var player2Name = player2TextBox.Text.ToString() + ",";
                 var blackPlayerScore = player0Score.ToString() + ",";
-                var whitePlayerScore = player1Score.ToString() + ","; */
-
+                var whitePlayerScore = player1Score.ToString() + ",";
+                var playerPlaying = isPlaying.ToString();
+                stringBuilder.AppendLine();
+                string playerInfo = player1Name + player2Name + blackPlayerScore + whitePlayerScore + playerPlaying;
+                stringBuilder.Append(playerInfo);
                 File.WriteAllText(saveFileDialog1.FileName, stringBuilder.ToString());
+                
 
             }
 
@@ -1530,9 +1547,28 @@ namespace Othello_Game_Assignment
             { array[7][0],array[7][1],array[7][2],array[7][3],array[7][4],array[7][5],array[7][6],array[7][7] }};
 
 
+                string playerInfo = sr.ReadLine();
+                var splitPlayerInfo = playerInfo.Split(",");
+
                 gameInProgress = true;
                 gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                player1TextBox.Text = splitPlayerInfo[0];
+                player2TextBox.Text = splitPlayerInfo[1];
+                player0Score = Int32.Parse(splitPlayerInfo[2]);
+                player1Score = Int32.Parse(splitPlayerInfo[3]);
+                player1ScoreLabel.Text = player1Score.ToString();
+                player0ScoreLabel.Text = player0Score.ToString();
+               
+
+                player0ScoreLabel.Visible = true;
+                player1ScoreLabel.Visible = true;
+
+                isPlaying = Int32.Parse(splitPlayerInfo[4]);
+
+                SetIsPlayingLabel();
+
+
             }
             
 
