@@ -80,11 +80,14 @@ namespace Othello_Game_Assignment
                 gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
                 gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
                 player1Score = 2;
-                player0Score = 2;
+                player0Score = 2;    
                 player0ScoreLabel.Text = player0Score.ToString();
                 player1ScoreLabel.Text = player1Score.ToString();
+                player0ScoreLabel.Visible = true;
+                player1ScoreLabel.Visible = true;
                 blackPlayingLabel.Visible = true;
                 whitePlayingLabel.Visible = false;
+                
                     
 
             }
@@ -1384,10 +1387,7 @@ namespace Othello_Game_Assignment
         } */
 
 
-        public void WinnerOfGame()
-        {
-
-        }
+      
 
 
 
@@ -1406,6 +1406,11 @@ namespace Othello_Game_Assignment
                 blackPlayingLabel.Visible = false;
             }
             
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
 
@@ -1483,7 +1488,7 @@ namespace Othello_Game_Assignment
             openFileDialog.Title = "Load your game";
 
 
-            openFileDialog.ShowDialog();
+            
 
 
             if(openFileDialog.ShowDialog() == DialogResult.OK)

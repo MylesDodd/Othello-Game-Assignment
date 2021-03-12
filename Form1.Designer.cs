@@ -44,13 +44,13 @@ namespace Othello_Game_Assignment
             this.player1ScoreLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.blackPlayingLabel = new System.Windows.Forms.Label();
+            this.playersPanel = new System.Windows.Forms.Panel();
             this.whitePlayingLabel = new System.Windows.Forms.Label();
+            this.blackPlayingLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.playersPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -121,6 +121,7 @@ namespace Othello_Game_Assignment
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // player1TextBox
             // 
@@ -145,6 +146,7 @@ namespace Othello_Game_Assignment
             this.player0ScoreLabel.Size = new System.Drawing.Size(27, 15);
             this.player0ScoreLabel.TabIndex = 6;
             this.player0ScoreLabel.Text = "egg";
+            this.player0ScoreLabel.Visible = false;
             // 
             // player1ScoreLabel
             // 
@@ -154,6 +156,7 @@ namespace Othello_Game_Assignment
             this.player1ScoreLabel.Size = new System.Drawing.Size(38, 15);
             this.player1ScoreLabel.TabIndex = 7;
             this.player1ScoreLabel.Text = "label3";
+            this.player1ScoreLabel.Visible = false;
             // 
             // pictureBox1
             // 
@@ -175,30 +178,23 @@ namespace Othello_Game_Assignment
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
             // 
-            // panel1
+            // playersPanel
             // 
-            this.panel1.Controls.Add(this.whitePlayingLabel);
-            this.panel1.Controls.Add(this.blackPlayingLabel);
-            this.panel1.Controls.Add(this.player0ScoreLabel);
-            this.panel1.Controls.Add(this.player2TextBox);
-            this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.player1ScoreLabel);
-            this.panel1.Controls.Add(this.player1TextBox);
-            this.panel1.Location = new System.Drawing.Point(37, 388);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(720, 50);
-            this.panel1.TabIndex = 10;
-            // 
-            // blackPlayingLabel
-            // 
-            this.blackPlayingLabel.AutoSize = true;
-            this.blackPlayingLabel.Location = new System.Drawing.Point(198, 16);
-            this.blackPlayingLabel.Name = "blackPlayingLabel";
-            this.blackPlayingLabel.Size = new System.Drawing.Size(74, 15);
-            this.blackPlayingLabel.TabIndex = 10;
-            this.blackPlayingLabel.Text = "Black to play";
-            this.blackPlayingLabel.Visible = false;
+            this.playersPanel.AutoSize = true;
+            this.playersPanel.BackColor = System.Drawing.Color.Salmon;
+            this.playersPanel.Controls.Add(this.whitePlayingLabel);
+            this.playersPanel.Controls.Add(this.blackPlayingLabel);
+            this.playersPanel.Controls.Add(this.player0ScoreLabel);
+            this.playersPanel.Controls.Add(this.player2TextBox);
+            this.playersPanel.Controls.Add(this.pictureBox2);
+            this.playersPanel.Controls.Add(this.pictureBox1);
+            this.playersPanel.Controls.Add(this.player1ScoreLabel);
+            this.playersPanel.Controls.Add(this.player1TextBox);
+            this.playersPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.playersPanel.Location = new System.Drawing.Point(0, 408);
+            this.playersPanel.Name = "playersPanel";
+            this.playersPanel.Size = new System.Drawing.Size(800, 42);
+            this.playersPanel.TabIndex = 10;
             // 
             // whitePlayingLabel
             // 
@@ -210,12 +206,24 @@ namespace Othello_Game_Assignment
             this.whitePlayingLabel.Text = "White to play";
             this.whitePlayingLabel.Visible = false;
             // 
+            // blackPlayingLabel
+            // 
+            this.blackPlayingLabel.AutoSize = true;
+            this.blackPlayingLabel.Location = new System.Drawing.Point(198, 16);
+            this.blackPlayingLabel.Name = "blackPlayingLabel";
+            this.blackPlayingLabel.Size = new System.Drawing.Size(74, 15);
+            this.blackPlayingLabel.TabIndex = 10;
+            this.blackPlayingLabel.Text = "Black to play";
+            this.blackPlayingLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.LightSalmon;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.playersPanel);
             this.Controls.Add(this.menuStrip1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -227,8 +235,8 @@ namespace Othello_Game_Assignment
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.playersPanel.ResumeLayout(false);
+            this.playersPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,9 +258,10 @@ namespace Othello_Game_Assignment
         private System.Windows.Forms.ToolStripMenuItem loadGameToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Panel panel1;
+
         private System.Windows.Forms.Label blackPlayingLabel;
         private System.Windows.Forms.Label whitePlayingLabel;
+        private System.Windows.Forms.Panel playersPanel;
     }
 }
 
