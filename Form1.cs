@@ -15,7 +15,7 @@ using GUIImageArray;
 // exception occurs when space clicked is in the outer most col/row <-- to fix
 namespace Othello_Game_Assignment
 {
-    public partial class Form1 : Form
+    public partial class OthelloGame : Form
     {
         string imageDirectory = Directory.GetCurrentDirectory() + "\\images\\";
         int[,] gameSpace = new int[8, 8]
@@ -41,7 +41,7 @@ namespace Othello_Game_Assignment
 
 
 
-        public Form1()
+        public OthelloGame()
         {
             InitializeComponent();
         }

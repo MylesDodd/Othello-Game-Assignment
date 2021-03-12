@@ -1,7 +1,7 @@
 ﻿
 namespace Othello_Game_Assignment
 {
-    partial class Form1
+    partial class OthelloGame
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace Othello_Game_Assignment
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OthelloGame));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,18 +216,20 @@ namespace Othello_Game_Assignment
             this.blackPlayingLabel.Text = "Black to play";
             this.blackPlayingLabel.Visible = false;
             // 
-            // Form1
+            // OthelloGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightSalmon;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.playersPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "OthelloGame";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Othello";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
