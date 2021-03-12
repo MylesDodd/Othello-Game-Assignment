@@ -1474,35 +1474,50 @@ namespace Othello_Game_Assignment
 
         public void loadGame()
         {
-            string filePath = Directory.GetCurrentDirectory() + "\\";
 
-            StreamReader sr = new StreamReader(filePath + "array.txt");
-
-            string line = sr.ReadLine();
-
-            List<List<int>> array = new List<List<int>> { };
+            
 
 
-            var split = line.Split(","); //returns array - returns a 64 element array with each digit (int) in the array
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "txt files(*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.Title = "Load your game";
 
-            for(int i = 0; i <= 7; i++) //looping over rows
+
+            openFileDialog.ShowDialog();
+
+
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                List<int> row = new List<int> { };
-                
+                var filePath = openFileDialog.FileName;
+                var fileStream = openFileDialog.OpenFile();
 
-                for(int j = 0; j <= 7; j++) //looping over columns
+                StreamReader sr = new StreamReader(fileStream);
+
+                string line = sr.ReadLine();
+
+                List<List<int>> array = new List<List<int>> { };
+
+
+                var split = line.Split(","); //returns array - returns a 64 element array with each digit (int) in the array
+
+                for (int i = 0; i <= 7; i++) //looping over rows
                 {
-                    int index = i * 8 + j;
-                    var elementString = split[index];
-                    int element = Int32.Parse(elementString);
-                    row.Add(element);
+                    List<int> row = new List<int> { };
+
+
+                    for (int j = 0; j <= 7; j++) //looping over columns
+                    {
+                        int index = i * 8 + j;
+                        var elementString = split[index];
+                        int element = Int32.Parse(elementString);
+                        row.Add(element);
+                    }
+
+                    array.Add(row);
                 }
 
-                array.Add(row);
-            }
-
-            gameSpace = new int[8, 8]
-            {{array[0][0],array[0][1],array[0][2],array[0][3],array[0][4],array[0][5],array[0][6],array[0][7] },
+                gameSpace = new int[8, 8]
+                {{array[0][0],array[0][1],array[0][2],array[0][3],array[0][4],array[0][5],array[0][6],array[0][7] },
             { array[1][0],array[1][1],array[1][2],array[1][3],array[1][4],array[1][5],array[1][6],array[1][7] },
             { array[2][0],array[2][1],array[2][2],array[2][3],array[2][4],array[2][5],array[2][6],array[2][7] },
             { array[3][0],array[3][1],array[3][2],array[3][3],array[3][4],array[3][5],array[3][6],array[3][7] },
@@ -1512,9 +1527,13 @@ namespace Othello_Game_Assignment
             { array[7][0],array[7][1],array[7][2],array[7][3],array[7][4],array[7][5],array[7][6],array[7][7] }};
 
 
-            gameInProgress = true;
-            gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
-            gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                gameInProgress = true;
+                gameBoard = new GImageArray(this, gameSpace, 50, 50, 50, 50, 0, imageDirectory);
+                gameBoard.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            }
+            
+
+            
 
         }
 
