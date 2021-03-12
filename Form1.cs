@@ -1410,7 +1410,8 @@ namespace Othello_Game_Assignment
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form about = new aboutForm();
+            about.Show();
         }
 
 
@@ -1463,13 +1464,6 @@ namespace Othello_Game_Assignment
 
                 File.WriteAllText(saveFileDialog1.FileName, stringBuilder.ToString());
             }
-
-
-
-        
-
-
-
 
 
 
