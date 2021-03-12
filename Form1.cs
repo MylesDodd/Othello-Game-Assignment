@@ -1384,6 +1384,12 @@ namespace Othello_Game_Assignment
         } */
 
 
+        public void WinnerOfGame()
+        {
+
+        }
+
+
 
         public void PlayerTurn()
         {
@@ -1426,20 +1432,36 @@ namespace Othello_Game_Assignment
         public void saveGame()
         {
             string filePath = Directory.GetCurrentDirectory() + "\\";
-        
-            var stringBuilder = new StringBuilder();
 
-            foreach (var arrayElement in gameSpace)
-            {   
 
-                stringBuilder.Append(arrayElement + ",".ToString());
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "txt files(*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.Title = "Save your game";
+
+            saveFileDialog1.ShowDialog();
+
+            if(saveFileDialog1.FileName != "")
+            {
+                
+
+                var stringBuilder = new StringBuilder();
+
+                foreach (var arrayElement in gameSpace)
+                {
+
+                    stringBuilder.Append(arrayElement + ",".ToString());
+                }
+
+
+                stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
+                File.WriteAllText(saveFileDialog1.FileName, stringBuilder.ToString());
             }
 
 
-            stringBuilder.Remove(stringBuilder.Length - 1, 1);
 
-            File.AppendAllText(filePath + "array.txt", stringBuilder.ToString());
-            File.WriteAllText(filePath + "array.txt", stringBuilder.ToString());
+        
 
 
 
