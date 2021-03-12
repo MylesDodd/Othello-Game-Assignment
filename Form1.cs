@@ -1459,16 +1459,14 @@ namespace Othello_Game_Assignment
                     stringBuilder.Append(arrayElement + ",".ToString());
                 }
                 
-                stringBuilder.Remove(stringBuilder.Length - 1, 1);
+              /*  stringBuilder.Remove(stringBuilder.Length - 1, 1);
                 var player1Name = player1TextBox.Text.ToString() + ",";
                 var player2Name = player2TextBox.Text.ToString() + ",";
                 var blackPlayerScore = player0Score.ToString() + ",";
-                var whitePlayerScore = player1Score.ToString() + ",";
+                var whitePlayerScore = player1Score.ToString() + ","; */
 
-                
+                File.WriteAllText(saveFileDialog1.FileName, stringBuilder.ToString());
 
-                File.WriteAllText(saveFileDialog1.FileName, stringBuilder.ToString() + player1Name + player2Name + blackPlayerScore + whitePlayerScore);
-               
             }
 
 
