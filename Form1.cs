@@ -83,6 +83,9 @@ namespace Othello_Game_Assignment
                 player0Score = 2;
                 player0ScoreLabel.Text = player0Score.ToString();
                 player1ScoreLabel.Text = player1Score.ToString();
+                blackPlayingLabel.Visible = true;
+                whitePlayingLabel.Visible = false;
+                    
 
             }
 
@@ -1387,10 +1390,14 @@ namespace Othello_Game_Assignment
             if(isPlaying == 1)
             {
                 isPlaying = 0;
+                blackPlayingLabel.Visible = true;
+                whitePlayingLabel.Visible = false;
             }
             else
             {
                 isPlaying = 1;
+                whitePlayingLabel.Visible = true;
+                blackPlayingLabel.Visible = false;
             }
             
         }
@@ -1489,6 +1496,7 @@ namespace Othello_Game_Assignment
 
         }
 
+       
     }
 }
 
